@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coast to Coast Walk 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .stat {
+            text-align: center;
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .timeline {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+
+        .timeline h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            color: #2c3e50;
+        }
+
+        .day {
+            display: flex;
+            margin-bottom: 30px;
+            padding: 25px;
+            border-radius: 15px;
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .day:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .day-number {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-right: 25px;
+            flex-shrink: 0;
+        }
+
+        .day-content {
+            flex: 1;
+        }
+
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .day-route {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .day-date {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .day-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .detail {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .detail-icon {
+            width: 20px;
+            height: 20px;
+            opacity: 0.7;
+        }
+
+        .detail-text {
+            font-size: 0.95rem;
+            color: #5a6c7d;
+        }
+
+        .accommodation {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #e0e7ff;
+        }
+
+        .accommodation-name {
+            font-weight: 600;
+            color: #4f46e5;
+            margin-bottom: 5px;
+        }
+
+        .accommodation-address {
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .accommodation-details {
+            font-size: 0.85rem;
+            color: #9ca3af;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: white;
+            opacity: 0.8;
+        }
+
+        .view-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .toggle-btn {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            font-weight: 500;
+        }
+
+        .toggle-btn:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        .toggle-btn.active {
+            background: white;
+            color: #667eea;
+            border-color: white;
+        }
+
+        .map-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            display: none;
+        }
+
+        .map-container.active {
+            display: block;
+        }
+
+        .timeline.active {
+            display: block;
+        }
+
+        #map {
+            width: 100%;
+            height: 600px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .map-info {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .map-info h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .map-info p {
+            color: #6b7280;
+            margin: 5px 0;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .stats {
+                gap: 20px;
+            }
+
+            .day {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .day-number {
+                margin: 0 auto 20px auto;
+            }
+
+            .day-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .timeline {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    
+    <div class="container">
+        <div class="hero">
+            <h1>Coast to Coast Walk 2025</h1>
+            <p>St Bees to Robin Hoods Bay • Alfred Wainwright's Famous Route</p>
+            
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-number">190</span>
+                    <span class="stat-label">Miles</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">17</span>
+                    <span class="stat-label">Days</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">3</span>
+                    <span class="stat-label">National Parks</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="view-toggle">
+            <button class="toggle-btn active" onclick="showTimeline()">📅 Daily Itinerary</button>
+            <button class="toggle-btn" onclick="showMap()">🗺️ Route Map</button>
+        </div>
+
+        <div class="map-container" id="mapContainer">
+            <h2 style="text-align: center; margin-bottom: 30px; font-size: 2.5rem; color: #2c3e50;">Interactive Route Map</h2>
+            <div id="map"></div>
+            <div class="map-info">
+                <h3>Click on any marker to see accommodation details</h3>
+                <p>🟢 Start Point • 🔵 Daily Stops • 🔴 Finish Point</p>
+                <p>The red line shows Wainwright's famous Coast to Coast route across Northern England</p>
+            </div>
+        </div>
+        
+        <div id="timelineContainer">
+            <h2>Daily Itinerary</h2>
+
+            <div class="day">
+                <div class="day-number">1</div>
+                <div class="day-content">
+                    <div class="day-header">
+                        <div class="day-route">Arrival in St Bees</div>
+                        <div class="day-date">9 Sep 2025</div>
+                    </div>
+                    <div class="day-details">
+                        <div class="detail">
+                            <span class="detail-icon">🚂</span>
+                            <span class="detail-text">Arrival day</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">🌊</span>
+                            <span class="detail-text">Start at the Irish Sea</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">🏰</span>
+                            <span class="detail-text">12th century priory</span>
+                        </div>
+                    </div>
+                    <div class="accommodation">
+                        <div class="accommodation-name">Seacote Hotel</div>
+                        <div class="accommodation-address">The Beach, St Bees, Cumbria</div>
+                        <div class="accommodation-details">📞 01946 822300 • Evening meals available • Book in advance</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day">
+                <div class="day-number">17</div>
+                <div class="day-content">
+                    <div class="day-header">
+                        <div class="day-route">St Bees → Ennerdale Bridge</div>
+                        <div class="day-date">10 Sep 2025</div>
+                    </div>
+                    <div class="day-details">
+                        <div class="detail">
+                            <span class="detail-icon">🥾</span>
+                            <span class="detail-text">14 miles</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">⛰️</span>
+                            <span class="detail-text">Sea level → 100m elevation</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">🪨</span>
+                            <span class="detail-text">Collect your pebble!</span>
+                        </div>
+                    </div>
+                    <div class="accommodation">
+                        <div class="accommodation-name">The Shepherds Arms Hotel</div>
+                        <div class="accommodation-address">Ennerdale Bridge, Cleator, Cumbria</div>
+                        <div class="accommodation-details">📞 01946 861249 • Evening meals available • Table reserved</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day">
+                <div class="day-number">2</div>
+                <div class="day-content">
+                    <div class="day-header">
+                        <div class="day-route">Ennerdale Bridge → Rosthwaite</div>
+                        <div class="day-date">11 Sep 2025</div>
+                    </div>
+                    <div class="day-details">
+                        <div class="detail">
+                            <span class="detail-icon">🥾</span>
+                            <span class="detail-text">14 miles</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">⛰️</span>
+                            <span class="detail-text">100m → 100m elevation</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">🏞️</span>
+                            <span class="detail-text">Lake District highlights</span>
+                        </div>
+                    </div>
+                    <div class="accommodation">
+                        <div class="accommodation-name">Royal Oak Hotel</div>
+                        <div class="accommodation-address">Rosthwaite, Borrowdale, Keswick</div>
+                        <div class="accommodation-details">📞 017687 77214 • Dinner, bed & breakfast basis • Check in from 1pm</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day">
+                <div class="day-number">3</div>
+                <div class="day-content">
+                    <div class="day-header">
+                        <div class="day-route">Rosthwaite → Grasmere</div>
+                        <div class="day-date">12 Sep 2025</div>
+                    </div>
+                    <div class="day-details">
+                        <div class="detail">
+                            <span class="detail-icon">🥾</span>
+                            <span class="detail-text">10 miles</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">⛰️</span>
+                            <span class="detail-text">100m → 75m elevation</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">📚</span>
+                            <span class="detail-text">Wordsworth's Grasmere</span>
+                        </div>
+                    </div>
+                    <div class="accommodation">
+                        <div class="accommodation-name">The Swan</div>
+                        <div class="accommodation-address">Keswick Road, Grasmere</div>
+                        <div class="accommodation-details">📞 01539 435742 • Check in from 3pm • Evening meals available</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day">
+                <div class="day-number">4</div>
+                <div class="day-content">
+                    <div class="day-header">
+                        <div class="day-route">Grasmere → Patterdale/Glenridding</div>
+                        <div class="day-date">13 Sep 2025</div>
+                    </div>
+                    <div class="day-details">
+                        <div class="detail">
+                            <span class="detail-icon">🥾</span>
+                            <span class="detail-text">8 miles</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">⛰️</span>
+                            <span class="detail-text">75m → 150m elevation</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">🏔️</span>
+                            <span class="detail-text">Optional Helvellyn route</span>
+                        </div>
+                    </div>
+                    <div class="accommodation">
+                        <div class="accommodation-name">Ullswater Inn</div>
+                        <div class="accommodation-address">Glenridding, Penrith</div>
+                        <div class="accommodation-details">📞 015394 35592 • Evening meals available • No booking required</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day">
+                <div class="day-number">5</div>
+                <div class="day-content">
+                    <div class="day-header">
+                        <div class="day-route">Patterdale → Shap</div>
+                        <div class="day-date">14 Sep 2025</div>
+                    </div>
+                    <div class="day-details">
+                        <div class="detail">
+                            <span class="detail-icon">🥾</span>
+                            <span class="detail-text">16 miles</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">⛰️</span>
+                            <span class="detail-text">150m → 250m elevation</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">🏛️</span>
+                            <span class="detail-text">Roman High Street</span>
+                        </div>
+                    </div>
+                    <div class="accommodation">
+                        <div class="accommodation-name">Kings Arms</div>
+                        <div class="accommodation-address">Main Street, Shap</div>
+                        <div class="accommodation-details">📞 01931 716277 • Evening meals available • Several pubs nearby</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day">
+                <div class="day-number">6</div>
+                <div class="day-content">
+                    <div class="day-header">
+                        <div class="day-route">Shap → Orton</div>
+                        <div class="day-date">15 Sep 2025</div>
+                    </div>
+                    <div class="day-details">
+                        <div class="detail">
+                            <span class="detail-icon">🥾</span>
+                            <span class="detail-text">8 miles</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">⛰️</span>
+                            <span class="detail-text">250m → 230m elevation</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>
+                            <span class="detail-text">Eden Valley farmland</span>
+                        </div>
+                    </div>
+                    <div class="accommodation">
+                        <div class="accommodation-name">George Hotel</div>
+                        <div class="accommodation-address">Front Street, Orton</div>
+                        <div class="accommodation-details">📞 01539 303015 • Evening meals available • Book at check-in</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day">
+                <div class="day-number">7</div>
+                <div class="day-content">
+                    <div class="day-header">
+                        <div class="day-route">Orton → Kirkby Stephen</div>
+                        <div class="day-date">16 Sep 2025</div>
+                    </div>
+                    <div class="day-details">
+                        <div class="detail">
+                            <span class="detail-icon">🥾</span>
+                            <span class="detail-text">12 miles</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">⛰️</span>
+                            <span class="detail-text">230m → 180m elevation</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">🚂</span>
+                            <span class="detail-text">Train station access</span>
+                        </div>
+                    </div>
+                    <div class="accommodation">
+                        <div class="accommodation-name">Old Croft House</div>
+                        <div class="accommodation-address">Market Street, Kirkby Stephen</div>
+                        <div class="accommodation-details">📞 017683 71638 • Check in from 3:30pm • Several restaurants nearby</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day">
+                <div class="day-number">8</div>
+                <div class="day-content">
+                    <div class="day-header">
+                        <div class="day-route">Kirkby Stephen → Keld</div>
+                        <div class="day-date">17 Sep 2025</div>
+                    </div>
+                    <div class="day-details">
+                        <div class="detail">
+                            <span class="detail-icon">🥾</span>
+                            <span class="detail-text">13 miles</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">⛰️</span>
+                            <span class="detail-text">180m → 350m elevation</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">🗿</span>
+                            <span class="detail-text">Nine Standards Rigg</span>
+                        </div>
+                    </div>
+                    <div class="accommodation">
+                        <div class="accommodation-name">Keld Lodge</div>
+                        <div class="accommodation-address">Keld, Richmond</div>
+                        <div class="accommodation-details">📞 01748 886259 • Evening meals available • Table reserved</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day">
+                <div class="day-number">9</div>
+                <div class="day-content">
+                    <div class="day-header">
+                        <div class="day-route">Keld → Reeth</div>
+                        <div class="day-date">18 Sep 2025</div>
+                    </div>
+                    <div class="day-details">
+                        <div class="detail">
+                            <span class="detail-icon">🥾</span>
+                            <span class="detail-text">11 miles</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">⛰️</span>
+                            <span class="detail-text">350m → 200m elevation</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">⛏️</span>
+                            <span class="detail-text">Lead mining heritage</span>
+                        </div>
+                    </div>
+                    <div class="accommodation">
+                        <div class="accommodation-name">Ivy Cottage</div>
+                        <div class="accommodation-address">The Green, Reeth</div>
+                        <div class="accommodation-details">📞 01748 884418 • Village centre • Several pubs nearby</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day">
+                <div class="day-number">10</div>
+                <div class="day-content">
+                    <div class="day-header">
+                        <div class="day-route">Reeth → Richmond</div>
+                        <div class="day-date">19 Sep 2025</div>
+                    </div>
+                    <div class="day-details">
+                        <div class="detail">
+                            <span class="detail-icon">🥾</span>
+                            <span class="detail-text">11 miles</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">⛰️</span>
+                            <span class="detail-text">200m → 150m elevation</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">🏰</span>
+                            <span class="detail-text">Historic Richmond</span>
+                        </div>
+                    </div>
+                    <div class="accommodation">
+                        <div class="accommodation-name">The Castle House</div>
+                        <div class="accommodation-address">9 Castle Hill, Richmond</div>
+                        <div class="accommodation-details">📞 07971 298152 • Historic town centre • Many restaurants</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day">
+                <div class="day-number">11</div>
+                <div class="day-content">
+                    <div class="day-header">
+                        <div class="day-route">Richmond → Danby Wiske</div>
+                        <div class="day-date">20 Sep 2025</div>
+                    </div>
+                    <div class="day-details">
+                        <div class="detail">
+                            <span class="detail-icon">🥾</span>
+                            <span class="detail-text">13 miles</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">⛰️</span>
+                            <span class="detail-text">150m → 36m elevation</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">🌾</span>
+                            <span class="detail-text">Vale of Mowbray</span>
+                        </div>
+                    </div>
+                    <div class="accommodation">
+                        <div class="accommodation-name">The White Swan Inn</div>
+                        <div class="accommodation-address">Danby Wiske, Northallerton</div>
+                        <div class="accommodation-details">📞 01609 775131 • Evening meals 6:30-7:00pm only • Pre-booking essential</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day">
+                <div class="day-number">12</div>
+                <div class="day-content">
+                    <div class="day-header">
+                        <div class="day-route">Danby Wiske → Ingleby Cross</div>
+                        <div class="day-date">21 Sep 2025</div>
+                    </div>
+                    <div class="day-details">
+                        <div class="detail">
+                            <span class="detail-icon">🥾</span>
+                            <span class="detail-text">9 miles</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">⛰️</span>
+                            <span class="detail-text">36m → 80m elevation</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">⚠️</span>
+                            <span class="detail-text">A19 road crossing</span>
+                        </div>
+                    </div>
+                    <div class="accommodation">
+                        <div class="accommodation-name">Park House</div>
+                        <div class="accommodation-address">Ingleby Cross, Northallerton</div>
+                        <div class="accommodation-details">📞 01609 882899 • Evening meals available • Call ahead to arrange</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day">
+                <div class="day-number">13</div>
+                <div class="day-content">
+                    <div class="day-header">
+                        <div class="day-route">Ingleby Cross → Clay Bank Top</div>
+                        <div class="day-date">22 Sep 2025</div>
+                    </div>
+                    <div class="day-details">
+                        <div class="detail">
+                            <span class="detail-icon">🥾</span>
+                            <span class="detail-text">13 miles</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">⛰️</span>
+                            <span class="detail-text">80m → 250m elevation</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">🌿</span>
+                            <span class="detail-text">Cleveland Hills</span>
+                        </div>
+                    </div>
+                    <div class="accommodation">
+                        <div class="accommodation-name">Wainstones Hotel</div>
+                        <div class="accommodation-address">High Street, Great Broughton</div>
+                        <div class="accommodation-details">📞 01642 712268 • Transport from Clay Bank Top • Check in from 2pm</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day">
+                <div class="day-number">14</div>
+                <div class="day-content">
+                    <div class="day-header">
+                        <div class="day-route">Clay Bank Top → Blakey Ridge</div>
+                        <div class="day-date">23 Sep 2025</div>
+                    </div>
+                    <div class="day-details">
+                        <div class="detail">
+                            <span class="detail-icon">🥾</span>
+                            <span class="detail-text">9 miles</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">⛰️</span>
+                            <span class="detail-text">250m → 400m elevation</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">🚂</span>
+                            <span class="detail-text">Disused railway</span>
+                        </div>
+                    </div>
+                    <div class="accommodation">
+                        <div class="accommodation-name">Lion Inn</div>
+                        <div class="accommodation-address">Blakey Ridge, Kirkbymoorside</div>
+                        <div class="accommodation-details">📞 01751 417320 • Remote inn • Evening meals available</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day">
+                <div class="day-number">15</div>
+                <div class="day-content">
+                    <div class="day-header">
+                        <div class="day-route">Blakey Ridge → Grosmont</div>
+                        <div class="day-date">24 Sep 2025</div>
+                    </div>
+                    <div class="day-details">
+                        <div class="detail">
+                            <span class="detail-icon">🥾</span>
+                            <span class="detail-text">14 miles</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">⛰️</span>
+                            <span class="detail-text">400m → 50m elevation</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">🌉</span>
+                            <span class="detail-text">Beggar's Bridge</span>
+                        </div>
+                    </div>
+                    <div class="accommodation">
+                        <div class="accommodation-name">Gallery B&B</div>
+                        <div class="accommodation-address">Front Street, Grosmont</div>
+                        <div class="accommodation-details">📞 07768 743633 • Check in from 12:30pm • Near railway station</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day">
+                <div class="day-number">16</div>
+                <div class="day-content">
+                    <div class="day-header">
+                        <div class="day-route">Grosmont → Robin Hoods Bay</div>
+                        <div class="day-date">25 Sep 2025</div>
+                    </div>
+                    <div class="day-details">
+                        <div class="detail">
+                            <span class="detail-icon">🥾</span>
+                            <span class="detail-text">15 miles</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">⛰️</span>
+                            <span class="detail-text">50m → sea level</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-icon">🌊</span>
+                            <span class="detail-text">FINISH at the sea!</span>
+                        </div>
+                    </div>
+                    <div class="accommodation">
+                        <div class="accommodation-name">The Wayfarer</div>
+                        <div class="accommodation-address">Station Road, Robin Hoods Bay</div>
+                        <div class="accommodation-details">📞 01947 880240 • Final destination • Coastal village • Celebration time!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <div class="footer">
+            <p>Alfred Wainwright's Coast to Coast Walk • September 2025</p>
+            <p>From the Irish Sea to the North Sea across Northern England</p>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <script>
+        let map;
+        let mapInitialized = false;
+        
+        let routeCoordinates = [
+            [54.4917, -3.5849], // St Bees
+            [54.5443, -3.3931], // Ennerdale Bridge
+            [54.5128, -3.2097], // Rosthwaite
+            [54.4598, -3.0298], // Grasmere
+            [54.4058, -2.9269], // Patterdale/Glenridding
+            [54.4786, -2.6728], // Shap
+            [54.5264, -2.5331], // Orton
+            [54.4797, -2.3520], // Kirkby Stephen
+            [54.4059, -2.1570], // Keld
+            [54.3882, -1.9583], // Reeth
+            [54.4040, -1.7388], // Richmond
+            [54.3792, -1.5158], // Danby Wiske
+            [54.3758, -1.2564], // Ingleby Cross
+            [54.4264, -1.1153], // Clay Bank Top/Great Broughton
+            [54.3994, -0.9728], // Blakey Ridge
+            [54.3847, -0.8181], // Grosmont
+            [54.4367, -0.5389]  // Robin Hoods Bay
+        ];
+
+        let accommodations = [
+            {
+                name: "Seacote Hotel",
+                coords: [54.4917, -3.5849],
+                day: 1,
+                date: "9 Sep 2025",
+                phone: "01946 822300",
+                address: "The Beach, St Bees",
+                notes: "Arrival day • Evening meals available",
+                color: "green"
+            },
+            {
+                name: "The Shepherds Arms Hotel",
+                coords: [54.5443, -3.3931],
+                day: 2,
+                date: "10 Sep 2025",
+                phone: "01946 861249",
+                address: "Ennerdale Bridge, Cleator",
+                notes: "14 miles • Table reserved for dinner",
+                color: "blue"
+            },
+            {
+                name: "Royal Oak Hotel",
+                coords: [54.5128, -3.2097],
+                day: 3,
+                date: "11 Sep 2025",
+                phone: "017687 77214",
+                address: "Rosthwaite, Borrowdale",
+                notes: "14 miles • Dinner, bed & breakfast",
+                color: "blue"
+            },
+            {
+                name: "The Swan",
+                coords: [54.4598, -3.0298],
+                day: 4,
+                date: "12 Sep 2025",
+                phone: "01539 435742",
+                address: "Keswick Road, Grasmere",
+                notes: "10 miles • Wordsworth's village",
+                color: "blue"
+            },
+            {
+                name: "Ullswater Inn",
+                coords: [54.4058, -2.9269],
+                day: 5,
+                date: "13 Sep 2025",
+                phone: "015394 35592",
+                address: "Glenridding, Penrith",
+                notes: "8 miles • Optional Helvellyn route",
+                color: "blue"
+            },
+            {
+                name: "Kings Arms",
+                coords: [54.4786, -2.6728],
+                day: 6,
+                date: "14 Sep 2025",
+                phone: "01931 716277",
+                address: "Main Street, Shap",
+                notes: "16 miles • Roman High Street",
+                color: "blue"
+            },
+            {
+                name: "George Hotel",
+                coords: [54.5264, -2.5331],
+                day: 7,
+                date: "15 Sep 2025",
+                phone: "01539 303015",
+                address: "Front Street, Orton",
+                notes: "8 miles • Eden Valley farmland",
+                color: "blue"
+            },
+            {
+                name: "Old Croft House",
+                coords: [54.4797, -2.3520],
+                day: 8,
+                date: "16 Sep 2025",
+                phone: "017683 71638",
+                address: "Market Street, Kirkby Stephen",
+                notes: "12 miles • Train station access",
+                color: "blue"
+            },
+            {
+                name: "Keld Lodge",
+                coords: [54.4059, -2.1570],
+                day: 9,
+                date: "17 Sep 2025",
+                phone: "01748 886259",
+                address: "Keld, Richmond",
+                notes: "13 miles • Nine Standards Rigg",
+                color: "blue"
+            },
+            {
+                name: "Ivy Cottage",
+                coords: [54.3882, -1.9583],
+                day: 10,
+                date: "18 Sep 2025",
+                phone: "01748 884418",
+                address: "The Green, Reeth",
+                notes: "11 miles • Lead mining heritage",
+                color: "blue"
+            },
+            {
+                name: "The Castle House",
+                coords: [54.4040, -1.7388],
+                day: 11,
+                date: "19 Sep 2025",
+                phone: "07971 298152",
+                address: "9 Castle Hill, Richmond",
+                notes: "11 miles • Historic market town",
+                color: "blue"
+            },
+            {
+                name: "The White Swan Inn",
+                coords: [54.3792, -1.5158],
+                day: 12,
+                date: "20 Sep 2025",
+                phone: "01609 775131",
+                address: "Danby Wiske, Northallerton",
+                notes: "13 miles • Vale of Mowbray",
+                color: "blue"
+            },
+            {
+                name: "Park House",
+                coords: [54.3758, -1.2564],
+                day: 13,
+                date: "21 Sep 2025",
+                phone: "01609 882899",
+                address: "Ingleby Cross, Northallerton",
+                notes: "9 miles • A19 road crossing",
+                color: "blue"
+            },
+            {
+                name: "Wainstones Hotel",
+                coords: [54.4264, -1.1153],
+                day: 14,
+                date: "22 Sep 2025",
+                phone: "01642 712268",
+                address: "High Street, Great Broughton",
+                notes: "13 miles • Cleveland Hills",
+                color: "blue"
+            },
+            {
+                name: "Lion Inn",
+                coords: [54.3994, -0.9728],
+                day: 15,
+                date: "23 Sep 2025",
+                phone: "01751 417320",
+                address: "Blakey Ridge, Kirkbymoorside",
+                notes: "9 miles • Remote moorland inn",
+                color: "blue"
+            },
+            {
+                name: "Gallery B&B",
+                coords: [54.3847, -0.8181],
+                day: 16,
+                date: "24 Sep 2025",
+                phone: "07768 743633",
+                address: "Front Street, Grosmont",
+                notes: "14 miles • Steam railway station",
+                color: "blue"
+            },
+            {
+                name: "The Wayfarer",
+                coords: [54.4367, -0.5389],
+                day: 17,
+                date: "25 Sep 2025",
+                phone: "01947 880240",
+                address: "Station Road, Robin Hoods Bay",
+                notes: "15 miles • FINISH! North Sea celebration",
+                color: "red"
+            }
+        ];
+
+        function initMap() {
+            try {
+                if (typeof L === 'undefined') {
+                    console.error('Leaflet library not loaded');
+                    return;
+                }
+
+                const mapElement = document.getElementById('map');
+                if (!mapElement) {
+                    console.error('Map container element not found');
+                    return;
+                }
+
+                if (mapInitialized) {
+                    return;
+                }
+
+                map = L.map('map').setView([54.45, -2.1], 8);
+                
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap contributors'
+                }).addTo(map);
+
+                // Add route line
+                L.polyline(routeCoordinates, {
+                    color: '#dc2626',
+                    weight: 4,
+                    opacity: 0.8
+                }).addTo(map);
+
+                // Add accommodation markers
+                accommodations.forEach(function(accommodation) {
+                    let markerColor = accommodation.color === 'green' ? '#22c55e' : 
+                                    accommodation.color === 'red' ? '#dc2626' : '#3b82f6';
+                    
+                    let marker = L.circleMarker(accommodation.coords, {
+                        radius: 8,
+                        fillColor: markerColor,
+                        color: 'white',
+                        weight: 2,
+                        opacity: 1,
+                        fillOpacity: 0.8
+                    }).addTo(map);
+
+                    let popupContent = `
+                        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+                            <h3 style="margin: 0 0 10px 0; color: #2c3e50; font-size: 1.1rem;">
+                                Day ${accommodation.day}: ${accommodation.name}
+                            </h3>
+                            <p style="margin: 5px 0; color: #6b7280; font-size: 0.9rem;">
+                                📅 ${accommodation.date}
+                            </p>
+                            <p style="margin: 5px 0; color: #6b7280; font-size: 0.9rem;">
+                                📍 ${accommodation.address}
+                            </p>
+                            <p style="margin: 5px 0; color: #6b7280; font-size: 0.9rem;">
+                                📞 ${accommodation.phone}
+                            </p>
+                            <p style="margin: 10px 0 0 0; color: #4f46e5; font-size: 0.9rem; font-weight: 500;">
+                                ${accommodation.notes}
+                            </p>
+                        </div>
+                    `;
+
+                    marker.bindPopup(popupContent);
+                });
+
+                // Fit map to show entire route
+                map.fitBounds(L.polyline(routeCoordinates).getBounds(), {padding: [20, 20]});
+                
+                mapInitialized = true;
+                console.log('Map initialized successfully');
+            } catch (error) {
+                console.error('Error initializing map:', error);
+            }
+        }
+
+        function showTimeline() {
+            const timelineContainer = document.getElementById('timelineContainer');
+            const mapContainer = document.getElementById('mapContainer');
+            
+            if (timelineContainer && mapContainer) {
+                timelineContainer.style.display = 'block';
+                mapContainer.style.display = 'none';
+                
+                document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
+                const timelineBtn = document.querySelectorAll('.toggle-btn')[0];
+                if (timelineBtn) {
+                    timelineBtn.classList.add('active');
+                }
+            }
+        }
+
+        function showMap() {
+            const timelineContainer = document.getElementById('timelineContainer');
+            const mapContainer = document.getElementById('mapContainer');
+            
+            if (timelineContainer && mapContainer) {
+                timelineContainer.style.display = 'none';
+                mapContainer.style.display = 'block';
+                
+                document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
+                const mapBtn = document.querySelectorAll('.toggle-btn')[1];
+                if (mapBtn) {
+                    mapBtn.classList.add('active');
+                }
+                
+                // Initialize map with a slight delay to ensure DOM is ready
+                if (!mapInitialized) {
+                    setTimeout(() => {
+                        if (typeof L !== 'undefined' && document.getElementById('map')) {
+                            initMap();
+                        } else {
+                            console.error('Leaflet library or map container not available');
+                        }
+                    }, 250);
+                }
+            }
+        }
+
+        // Ensure everything is loaded before allowing any interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verify all required elements exist
+            const timelineContainer = document.getElementById('timelineContainer');
+            const mapContainer = document.getElementById('mapContainer');
+            const mapElement = document.getElementById('map');
+            
+            if (!timelineContainer || !mapContainer || !mapElement) {
+                console.error('Required DOM elements not found');
+                return;
+            }
+            
+            // Set initial state
+            timelineContainer.style.display = 'block';
+            mapContainer.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
