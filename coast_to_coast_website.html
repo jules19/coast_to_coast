@@ -1,1186 +1,1148 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Coast to Coast Walk 2025</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            color: #2c3e50;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
+      body {
+        font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont,
+          "Segoe UI", Roboto, sans-serif;
+        line-height: 1.6;
+        color: #2c3e50;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        scroll-behavior: smooth;
+      }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
 
-        .hero {
-            text-align: center;
-            padding: 60px 20px;
-            color: white;
-            margin-bottom: 40px;
-        }
+      .hero {
+        text-align: center;
+        padding: 60px 20px;
+        color: white;
+        margin-bottom: 40px;
+        position: relative;
+        overflow: hidden;
+      }
 
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="%23ffffff" fill-opacity="0.03"><path d="M30 0L35 25L60 30L35 35L30 60L25 35L0 30L25 25Z"/></g></svg>')
+          repeat;
+        background-size: 60px 60px;
+        animation: float 20s linear infinite;
+        pointer-events: none;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateX(-60px) translateY(-60px);
+        }
+        100% {
+          transform: translateX(0) translateY(0);
+        }
+      }
+
+      .hero h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .hero p {
+        font-size: 1.3rem;
+        margin-bottom: 30px;
+        opacity: 0.9;
+      }
+
+      .stats {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        flex-wrap: wrap;
+        margin-top: 30px;
+      }
+
+      .stat {
+        text-align: center;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transform: translateY(20px);
+        opacity: 0;
+        animation: slideUp 0.8s ease forwards;
+      }
+
+      .stat:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .stat:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes slideUp {
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .countdown-container {
+        margin-top: 40px;
+        padding: 25px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .countdown-title {
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+        opacity: 0.9;
+      }
+
+      .countdown {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+      }
+
+      .countdown-item {
+        text-align: center;
+      }
+
+      .countdown-value {
+        display: block;
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .countdown-label {
+        font-size: 0.9rem;
+        opacity: 0.8;
+      }
+
+      .stat-number {
+        font-size: 2.5rem;
+        font-weight: bold;
+        display: block;
+      }
+
+      .stat-label {
+        font-size: 0.9rem;
+        opacity: 0.8;
+      }
+
+      #timelineContainer {
+        background: white;
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        margin-bottom: 40px;
+      }
+
+      #timelineContainer h2 {
+        text-align: center;
+        margin-bottom: 50px;
+        font-size: 2.5rem;
+        color: #1a202c;
+        font-weight: 800;
+        letter-spacing: -0.025em;
+      }
+
+      .day {
+        display: flex;
+        margin-bottom: 35px;
+        padding: 30px;
+        border-radius: 18px;
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-left: 6px solid #667eea;
+        transition: all 0.3s ease;
+        position: relative;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      }
+
+      .day:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+        border-color: #e5e7eb;
+        border-left-color: #4f46e5;
+      }
+
+      .day-number {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 1.2rem;
+        margin-right: 25px;
+        flex-shrink: 0;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .day-number span {
+        position: relative;
+        z-index: 2;
+      }
+
+      .day-number::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, #4f46e5, #7c3aed);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        border-radius: 50%;
+        z-index: 1;
+      }
+
+      .day:hover .day-number::before {
+        opacity: 1;
+      }
+
+      .day:hover .day-number {
+        transform: scale(1.1);
+      }
+
+      .day-content {
+        flex: 1;
+      }
+
+      .day-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      .day-route {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #1a202c;
+        letter-spacing: -0.025em;
+      }
+
+      .day-date {
+        background: #e3f2fd;
+        color: #1976d2;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+
+      .day-meta {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+      }
+
+      .day-info-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: #f8f9fa;
+        padding: 8px 12px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+      }
+
+      .difficulty-Strenuous {
+        background: #f8d7da;
+        color: #721c24;
+      }
+      .difficulty-Moderate {
+        background: #fff3cd;
+        color: #856404;
+      }
+      .difficulty-Long-moderate {
+        background: #d1ecf1;
+        color: #0c5460;
+      }
+      .difficulty-Arrival-day {
+        background: #d4edda;
+        color: #155724;
+      }
+
+      .accommodation {
+        background: #f8fafc;
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+        margin-top: 5px;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .accommodation:hover {
+        background: #f1f5f9;
+        border-color: #cbd5e1;
+        transform: translateY(-1px);
+      }
+
+      .accommodation-name {
+        font-weight: 700;
+        color: #4338ca;
+        margin-bottom: 8px;
+        font-size: 1.05rem;
+      }
+
+      .accommodation-address {
+        font-size: 0.95rem;
+        color: #4b5563;
+        margin-bottom: 10px;
+        font-weight: 500;
+      }
+
+      .accommodation-details {
+        font-size: 0.9rem;
+        color: #6b7280;
+        font-weight: 400;
+        line-height: 1.5;
+      }
+
+      .footer {
+        text-align: center;
+        padding: 40px 20px;
+        color: white;
+        opacity: 0.8;
+      }
+
+      .view-toggle {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 40px;
+      }
+
+      .toggle-btn {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        padding: 12px 24px;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        backdrop-filter: blur(10px);
+        font-weight: 500;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .toggle-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .toggle-btn:hover::before {
+        left: 100%;
+      }
+
+      .toggle-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.5);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      .toggle-btn.active {
+        background: white;
+        color: #667eea;
+        border-color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      .map-container {
+        background: white;
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        margin-bottom: 40px;
+        display: none;
+      }
+
+      .map-container.active {
+        display: block;
+      }
+
+      #map {
+        width: 100%;
+        height: 600px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .map-loading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 600px;
+        background: #f8f9fa;
+        border-radius: 15px;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .loading-spinner {
+        width: 50px;
+        height: 50px;
+        border: 4px solid #e5e7eb;
+        border-top: 4px solid #667eea;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .loading-text {
+        color: #6b7280;
+        font-size: 1.1rem;
+      }
+
+      .map-info {
+        margin-top: 20px;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 15px;
+        text-align: center;
+      }
+
+      .map-info h3 {
+        color: #2c3e50;
+        margin-bottom: 10px;
+      }
+
+      .map-info p {
+        color: #6b7280;
+        margin: 5px 0;
+      }
+
+      .back-to-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(20px);
+        z-index: 1000;
+      }
+
+      .back-to-top.visible {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      .back-to-top:hover {
+        transform: translateY(-3px) scale(1.1);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+        background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      }
+
+      @media (max-width: 768px) {
         .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 30px;
-            opacity: 0.9;
+          font-size: 2.5rem;
         }
 
         .stats {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
-            margin-top: 30px;
-        }
-
-        .stat {
-            text-align: center;
-            background: rgba(255,255,255,0.1);
-            padding: 20px;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            display: block;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        .timeline {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-            margin-bottom: 40px;
-        }
-
-        .timeline h2 {
-            text-align: center;
-            margin-bottom: 40px;
-            font-size: 2.5rem;
-            color: #2c3e50;
+          gap: 20px;
         }
 
         .day {
-            display: flex;
-            margin-bottom: 30px;
-            padding: 25px;
-            border-radius: 15px;
-            background: #f8f9fa;
-            border-left: 5px solid #667eea;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .day:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+          flex-direction: column;
+          text-align: center;
         }
 
         .day-number {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-right: 25px;
-            flex-shrink: 0;
+          margin: 0 auto 20px auto;
         }
 
-        .day-content {
-            flex: 1;
+        .day-header,
+        .day-meta {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          gap: 10px;
         }
 
-        .day-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-            gap: 10px;
+        #timelineContainer {
+          padding: 20px;
         }
 
-        .day-route {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: #2c3e50;
+        .back-to-top {
+          bottom: 20px;
+          right: 20px;
+          width: 45px;
+          height: 45px;
+          font-size: 1.3rem;
         }
-
-        .day-date {
-            background: #e3f2fd;
-            color: #1976d2;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .day-details {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-
-        .detail {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .detail-icon {
-            width: 20px;
-            height: 20px;
-            opacity: 0.7;
-        }
-
-        .detail-text {
-            font-size: 0.95rem;
-            color: #5a6c7d;
-        }
-
-        .accommodation {
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
-            border: 1px solid #e0e7ff;
-        }
-
-        .accommodation-name {
-            font-weight: 600;
-            color: #4f46e5;
-            margin-bottom: 5px;
-        }
-
-        .accommodation-address {
-            font-size: 0.9rem;
-            color: #6b7280;
-            margin-bottom: 8px;
-        }
-
-        .accommodation-details {
-            font-size: 0.85rem;
-            color: #9ca3af;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 40px 20px;
-            color: white;
-            opacity: 0.8;
-        }
-
-        .view-toggle {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .toggle-btn {
-            background: rgba(255,255,255,0.1);
-            color: white;
-            border: 2px solid rgba(255,255,255,0.3);
-            padding: 12px 24px;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            font-weight: 500;
-        }
-
-        .toggle-btn:hover {
-            background: rgba(255,255,255,0.2);
-            border-color: rgba(255,255,255,0.5);
-        }
-
-        .toggle-btn.active {
-            background: white;
-            color: #667eea;
-            border-color: white;
-        }
-
-        .map-container {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-            margin-bottom: 40px;
-            display: none;
-        }
-
-        .map-container.active {
-            display: block;
-        }
-
-        .timeline.active {
-            display: block;
-        }
-
-        #map {
-            width: 100%;
-            height: 600px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .map-info {
-            margin-top: 20px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 15px;
-            text-align: center;
-        }
-
-        .map-info h3 {
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-
-        .map-info p {
-            color: #6b7280;
-            margin: 5px 0;
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .stats {
-                gap: 20px;
-            }
-
-            .day {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .day-number {
-                margin: 0 auto 20px auto;
-            }
-
-            .day-header {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-
-            .timeline {
-                padding: 20px;
-            }
-        }
+      }
     </style>
-</head>
-<body>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
-    
+  </head>
+  <body>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
+    />
+
     <div class="container">
-        <div class="hero">
-            <h1>Coast to Coast Walk 2025</h1>
-            <p>St Bees to Robin Hoods Bay • Alfred Wainwright's Famous Route</p>
-            
-            <div class="stats">
-                <div class="stat">
-                    <span class="stat-number">190</span>
-                    <span class="stat-label">Miles</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number">17</span>
-                    <span class="stat-label">Days</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number">3</span>
-                    <span class="stat-label">National Parks</span>
-                </div>
-            </div>
+      <div class="hero">
+        <h1>Coast to Coast Walk 2025</h1>
+        <p>St Bees to Robin Hoods Bay • Alfred Wainwright's Famous Route</p>
+
+        <div class="stats">
+          <div class="stat" data-animate="190">
+            <span class="stat-number">0</span>
+            <span class="stat-label">Miles</span>
+          </div>
+          <div class="stat" data-animate="17">
+            <span class="stat-number">0</span>
+            <span class="stat-label">Days</span>
+          </div>
+          <div class="stat" data-animate="3">
+            <span class="stat-number">0</span>
+            <span class="stat-label">National Parks</span>
+          </div>
         </div>
 
-        <div class="view-toggle">
-            <button class="toggle-btn active" onclick="showTimeline()">📅 Daily Itinerary</button>
-            <button class="toggle-btn" onclick="showMap()">🗺️ Route Map</button>
+        <div class="countdown-container">
+          <div class="countdown-title">Walk begins in:</div>
+          <div class="countdown" id="countdown">
+            <div class="countdown-item">
+              <span class="countdown-value" id="days">0</span>
+              <span class="countdown-label">Days</span>
+            </div>
+            <div class="countdown-item">
+              <span class="countdown-value" id="hours">0</span>
+              <span class="countdown-label">Hours</span>
+            </div>
+            <div class="countdown-item">
+              <span class="countdown-value" id="minutes">0</span>
+              <span class="countdown-label">Minutes</span>
+            </div>
+          </div>
         </div>
+      </div>
 
-        <div class="map-container" id="mapContainer">
-            <h2 style="text-align: center; margin-bottom: 30px; font-size: 2.5rem; color: #2c3e50;">Interactive Route Map</h2>
-            <div id="map"></div>
-            <div class="map-info">
-                <h3>Click on any marker to see accommodation details</h3>
-                <p>🟢 Start Point • 🔵 Daily Stops • 🔴 Finish Point</p>
-                <p>The red line shows Wainwright's famous Coast to Coast route across Northern England</p>
-            </div>
+      <div class="view-toggle">
+        <button class="toggle-btn active" onclick="showTimeline()">
+          📅 Daily Itinerary
+        </button>
+        <button class="toggle-btn" onclick="showMap()">🗺️ Route Map</button>
+      </div>
+
+      <div class="map-container" id="mapContainer">
+        <h2
+          style="
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            color: #2c3e50;
+          "
+        >
+          Interactive Route Map
+        </h2>
+        <div class="map-loading" id="mapLoading" style="display: none">
+          <div class="loading-spinner"></div>
+          <div class="loading-text">Loading interactive map...</div>
         </div>
-        
-        <div id="timelineContainer">
-            <h2>Daily Itinerary</h2>
-
-            <div class="day">
-                <div class="day-number">1</div>
-                <div class="day-content">
-                    <div class="day-header">
-                        <div class="day-route">Arrival in St Bees</div>
-                        <div class="day-date">9 Sep 2025</div>
-                    </div>
-                    <div class="day-details">
-                        <div class="detail">
-                            <span class="detail-icon">🚂</span>
-                            <span class="detail-text">Arrival day</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">🌊</span>
-                            <span class="detail-text">Start at the Irish Sea</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">🏰</span>
-                            <span class="detail-text">12th century priory</span>
-                        </div>
-                    </div>
-                    <div class="accommodation">
-                        <div class="accommodation-name">Seacote Hotel</div>
-                        <div class="accommodation-address">The Beach, St Bees, Cumbria</div>
-                        <div class="accommodation-details">📞 01946 822300 • Evening meals available • Book in advance</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="day">
-                <div class="day-number">17</div>
-                <div class="day-content">
-                    <div class="day-header">
-                        <div class="day-route">St Bees → Ennerdale Bridge</div>
-                        <div class="day-date">10 Sep 2025</div>
-                    </div>
-                    <div class="day-details">
-                        <div class="detail">
-                            <span class="detail-icon">🥾</span>
-                            <span class="detail-text">14 miles</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">⛰️</span>
-                            <span class="detail-text">Sea level → 100m elevation</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">🪨</span>
-                            <span class="detail-text">Collect your pebble!</span>
-                        </div>
-                    </div>
-                    <div class="accommodation">
-                        <div class="accommodation-name">The Shepherds Arms Hotel</div>
-                        <div class="accommodation-address">Ennerdale Bridge, Cleator, Cumbria</div>
-                        <div class="accommodation-details">📞 01946 861249 • Evening meals available • Table reserved</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="day">
-                <div class="day-number">2</div>
-                <div class="day-content">
-                    <div class="day-header">
-                        <div class="day-route">Ennerdale Bridge → Rosthwaite</div>
-                        <div class="day-date">11 Sep 2025</div>
-                    </div>
-                    <div class="day-details">
-                        <div class="detail">
-                            <span class="detail-icon">🥾</span>
-                            <span class="detail-text">14 miles</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">⛰️</span>
-                            <span class="detail-text">100m → 100m elevation</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">🏞️</span>
-                            <span class="detail-text">Lake District highlights</span>
-                        </div>
-                    </div>
-                    <div class="accommodation">
-                        <div class="accommodation-name">Royal Oak Hotel</div>
-                        <div class="accommodation-address">Rosthwaite, Borrowdale, Keswick</div>
-                        <div class="accommodation-details">📞 017687 77214 • Dinner, bed & breakfast basis • Check in from 1pm</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="day">
-                <div class="day-number">3</div>
-                <div class="day-content">
-                    <div class="day-header">
-                        <div class="day-route">Rosthwaite → Grasmere</div>
-                        <div class="day-date">12 Sep 2025</div>
-                    </div>
-                    <div class="day-details">
-                        <div class="detail">
-                            <span class="detail-icon">🥾</span>
-                            <span class="detail-text">10 miles</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">⛰️</span>
-                            <span class="detail-text">100m → 75m elevation</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">📚</span>
-                            <span class="detail-text">Wordsworth's Grasmere</span>
-                        </div>
-                    </div>
-                    <div class="accommodation">
-                        <div class="accommodation-name">The Swan</div>
-                        <div class="accommodation-address">Keswick Road, Grasmere</div>
-                        <div class="accommodation-details">📞 01539 435742 • Check in from 3pm • Evening meals available</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="day">
-                <div class="day-number">4</div>
-                <div class="day-content">
-                    <div class="day-header">
-                        <div class="day-route">Grasmere → Patterdale/Glenridding</div>
-                        <div class="day-date">13 Sep 2025</div>
-                    </div>
-                    <div class="day-details">
-                        <div class="detail">
-                            <span class="detail-icon">🥾</span>
-                            <span class="detail-text">8 miles</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">⛰️</span>
-                            <span class="detail-text">75m → 150m elevation</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">🏔️</span>
-                            <span class="detail-text">Optional Helvellyn route</span>
-                        </div>
-                    </div>
-                    <div class="accommodation">
-                        <div class="accommodation-name">Ullswater Inn</div>
-                        <div class="accommodation-address">Glenridding, Penrith</div>
-                        <div class="accommodation-details">📞 015394 35592 • Evening meals available • No booking required</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="day">
-                <div class="day-number">5</div>
-                <div class="day-content">
-                    <div class="day-header">
-                        <div class="day-route">Patterdale → Shap</div>
-                        <div class="day-date">14 Sep 2025</div>
-                    </div>
-                    <div class="day-details">
-                        <div class="detail">
-                            <span class="detail-icon">🥾</span>
-                            <span class="detail-text">16 miles</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">⛰️</span>
-                            <span class="detail-text">150m → 250m elevation</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">🏛️</span>
-                            <span class="detail-text">Roman High Street</span>
-                        </div>
-                    </div>
-                    <div class="accommodation">
-                        <div class="accommodation-name">Kings Arms</div>
-                        <div class="accommodation-address">Main Street, Shap</div>
-                        <div class="accommodation-details">📞 01931 716277 • Evening meals available • Several pubs nearby</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="day">
-                <div class="day-number">6</div>
-                <div class="day-content">
-                    <div class="day-header">
-                        <div class="day-route">Shap → Orton</div>
-                        <div class="day-date">15 Sep 2025</div>
-                    </div>
-                    <div class="day-details">
-                        <div class="detail">
-                            <span class="detail-icon">🥾</span>
-                            <span class="detail-text">8 miles</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">⛰️</span>
-                            <span class="detail-text">250m → 230m elevation</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>
-                            <span class="detail-text">Eden Valley farmland</span>
-                        </div>
-                    </div>
-                    <div class="accommodation">
-                        <div class="accommodation-name">George Hotel</div>
-                        <div class="accommodation-address">Front Street, Orton</div>
-                        <div class="accommodation-details">📞 01539 303015 • Evening meals available • Book at check-in</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="day">
-                <div class="day-number">7</div>
-                <div class="day-content">
-                    <div class="day-header">
-                        <div class="day-route">Orton → Kirkby Stephen</div>
-                        <div class="day-date">16 Sep 2025</div>
-                    </div>
-                    <div class="day-details">
-                        <div class="detail">
-                            <span class="detail-icon">🥾</span>
-                            <span class="detail-text">12 miles</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">⛰️</span>
-                            <span class="detail-text">230m → 180m elevation</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">🚂</span>
-                            <span class="detail-text">Train station access</span>
-                        </div>
-                    </div>
-                    <div class="accommodation">
-                        <div class="accommodation-name">Old Croft House</div>
-                        <div class="accommodation-address">Market Street, Kirkby Stephen</div>
-                        <div class="accommodation-details">📞 017683 71638 • Check in from 3:30pm • Several restaurants nearby</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="day">
-                <div class="day-number">8</div>
-                <div class="day-content">
-                    <div class="day-header">
-                        <div class="day-route">Kirkby Stephen → Keld</div>
-                        <div class="day-date">17 Sep 2025</div>
-                    </div>
-                    <div class="day-details">
-                        <div class="detail">
-                            <span class="detail-icon">🥾</span>
-                            <span class="detail-text">13 miles</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">⛰️</span>
-                            <span class="detail-text">180m → 350m elevation</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">🗿</span>
-                            <span class="detail-text">Nine Standards Rigg</span>
-                        </div>
-                    </div>
-                    <div class="accommodation">
-                        <div class="accommodation-name">Keld Lodge</div>
-                        <div class="accommodation-address">Keld, Richmond</div>
-                        <div class="accommodation-details">📞 01748 886259 • Evening meals available • Table reserved</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="day">
-                <div class="day-number">9</div>
-                <div class="day-content">
-                    <div class="day-header">
-                        <div class="day-route">Keld → Reeth</div>
-                        <div class="day-date">18 Sep 2025</div>
-                    </div>
-                    <div class="day-details">
-                        <div class="detail">
-                            <span class="detail-icon">🥾</span>
-                            <span class="detail-text">11 miles</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">⛰️</span>
-                            <span class="detail-text">350m → 200m elevation</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">⛏️</span>
-                            <span class="detail-text">Lead mining heritage</span>
-                        </div>
-                    </div>
-                    <div class="accommodation">
-                        <div class="accommodation-name">Ivy Cottage</div>
-                        <div class="accommodation-address">The Green, Reeth</div>
-                        <div class="accommodation-details">📞 01748 884418 • Village centre • Several pubs nearby</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="day">
-                <div class="day-number">10</div>
-                <div class="day-content">
-                    <div class="day-header">
-                        <div class="day-route">Reeth → Richmond</div>
-                        <div class="day-date">19 Sep 2025</div>
-                    </div>
-                    <div class="day-details">
-                        <div class="detail">
-                            <span class="detail-icon">🥾</span>
-                            <span class="detail-text">11 miles</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">⛰️</span>
-                            <span class="detail-text">200m → 150m elevation</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">🏰</span>
-                            <span class="detail-text">Historic Richmond</span>
-                        </div>
-                    </div>
-                    <div class="accommodation">
-                        <div class="accommodation-name">The Castle House</div>
-                        <div class="accommodation-address">9 Castle Hill, Richmond</div>
-                        <div class="accommodation-details">📞 07971 298152 • Historic town centre • Many restaurants</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="day">
-                <div class="day-number">11</div>
-                <div class="day-content">
-                    <div class="day-header">
-                        <div class="day-route">Richmond → Danby Wiske</div>
-                        <div class="day-date">20 Sep 2025</div>
-                    </div>
-                    <div class="day-details">
-                        <div class="detail">
-                            <span class="detail-icon">🥾</span>
-                            <span class="detail-text">13 miles</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">⛰️</span>
-                            <span class="detail-text">150m → 36m elevation</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">🌾</span>
-                            <span class="detail-text">Vale of Mowbray</span>
-                        </div>
-                    </div>
-                    <div class="accommodation">
-                        <div class="accommodation-name">The White Swan Inn</div>
-                        <div class="accommodation-address">Danby Wiske, Northallerton</div>
-                        <div class="accommodation-details">📞 01609 775131 • Evening meals 6:30-7:00pm only • Pre-booking essential</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="day">
-                <div class="day-number">12</div>
-                <div class="day-content">
-                    <div class="day-header">
-                        <div class="day-route">Danby Wiske → Ingleby Cross</div>
-                        <div class="day-date">21 Sep 2025</div>
-                    </div>
-                    <div class="day-details">
-                        <div class="detail">
-                            <span class="detail-icon">🥾</span>
-                            <span class="detail-text">9 miles</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">⛰️</span>
-                            <span class="detail-text">36m → 80m elevation</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">⚠️</span>
-                            <span class="detail-text">A19 road crossing</span>
-                        </div>
-                    </div>
-                    <div class="accommodation">
-                        <div class="accommodation-name">Park House</div>
-                        <div class="accommodation-address">Ingleby Cross, Northallerton</div>
-                        <div class="accommodation-details">📞 01609 882899 • Evening meals available • Call ahead to arrange</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="day">
-                <div class="day-number">13</div>
-                <div class="day-content">
-                    <div class="day-header">
-                        <div class="day-route">Ingleby Cross → Clay Bank Top</div>
-                        <div class="day-date">22 Sep 2025</div>
-                    </div>
-                    <div class="day-details">
-                        <div class="detail">
-                            <span class="detail-icon">🥾</span>
-                            <span class="detail-text">13 miles</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">⛰️</span>
-                            <span class="detail-text">80m → 250m elevation</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">🌿</span>
-                            <span class="detail-text">Cleveland Hills</span>
-                        </div>
-                    </div>
-                    <div class="accommodation">
-                        <div class="accommodation-name">Wainstones Hotel</div>
-                        <div class="accommodation-address">High Street, Great Broughton</div>
-                        <div class="accommodation-details">📞 01642 712268 • Transport from Clay Bank Top • Check in from 2pm</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="day">
-                <div class="day-number">14</div>
-                <div class="day-content">
-                    <div class="day-header">
-                        <div class="day-route">Clay Bank Top → Blakey Ridge</div>
-                        <div class="day-date">23 Sep 2025</div>
-                    </div>
-                    <div class="day-details">
-                        <div class="detail">
-                            <span class="detail-icon">🥾</span>
-                            <span class="detail-text">9 miles</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">⛰️</span>
-                            <span class="detail-text">250m → 400m elevation</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">🚂</span>
-                            <span class="detail-text">Disused railway</span>
-                        </div>
-                    </div>
-                    <div class="accommodation">
-                        <div class="accommodation-name">Lion Inn</div>
-                        <div class="accommodation-address">Blakey Ridge, Kirkbymoorside</div>
-                        <div class="accommodation-details">📞 01751 417320 • Remote inn • Evening meals available</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="day">
-                <div class="day-number">15</div>
-                <div class="day-content">
-                    <div class="day-header">
-                        <div class="day-route">Blakey Ridge → Grosmont</div>
-                        <div class="day-date">24 Sep 2025</div>
-                    </div>
-                    <div class="day-details">
-                        <div class="detail">
-                            <span class="detail-icon">🥾</span>
-                            <span class="detail-text">14 miles</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">⛰️</span>
-                            <span class="detail-text">400m → 50m elevation</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">🌉</span>
-                            <span class="detail-text">Beggar's Bridge</span>
-                        </div>
-                    </div>
-                    <div class="accommodation">
-                        <div class="accommodation-name">Gallery B&B</div>
-                        <div class="accommodation-address">Front Street, Grosmont</div>
-                        <div class="accommodation-details">📞 07768 743633 • Check in from 12:30pm • Near railway station</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="day">
-                <div class="day-number">16</div>
-                <div class="day-content">
-                    <div class="day-header">
-                        <div class="day-route">Grosmont → Robin Hoods Bay</div>
-                        <div class="day-date">25 Sep 2025</div>
-                    </div>
-                    <div class="day-details">
-                        <div class="detail">
-                            <span class="detail-icon">🥾</span>
-                            <span class="detail-text">15 miles</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">⛰️</span>
-                            <span class="detail-text">50m → sea level</span>
-                        </div>
-                        <div class="detail">
-                            <span class="detail-icon">🌊</span>
-                            <span class="detail-text">FINISH at the sea!</span>
-                        </div>
-                    </div>
-                    <div class="accommodation">
-                        <div class="accommodation-name">The Wayfarer</div>
-                        <div class="accommodation-address">Station Road, Robin Hoods Bay</div>
-                        <div class="accommodation-details">📞 01947 880240 • Final destination • Coastal village • Celebration time!</div>
-                    </div>
-                </div>
-            </div>
+        <div id="map" style="display: none"></div>
+        <div class="map-info">
+          <h3>Click on any marker to see accommodation details</h3>
+          <p>🟢 Start Point • 🔵 Daily Stops • 🔴 Finish Point</p>
+          <p>
+            The red line shows Wainwright's famous Coast to Coast route across
+            Northern England
+          </p>
         </div>
-        </div>
+      </div>
 
-        <div class="footer">
-            <p>Alfred Wainwright's Coast to Coast Walk • September 2025</p>
-            <p>From the Irish Sea to the North Sea across Northern England</p>
-        </div>
+      <div id="timelineContainer">
+        <h2>Daily Itinerary</h2>
+        <!-- Daily cards will be dynamically inserted here -->
+      </div>
+
+      <div class="footer">
+        <p>Alfred Wainwright's Coast to Coast Walk • September 2025</p>
+        <p>From the Irish Sea to the North Sea across Northern England</p>
+      </div>
     </div>
+
+    <button
+      class="back-to-top"
+      id="backToTop"
+      onclick="scrollToTop()"
+      title="Back to top"
+    >
+      ↑
+    </button>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
     <script>
-        let map;
-        let mapInitialized = false;
-        
-        let routeCoordinates = [
-            [54.4917, -3.5849], // St Bees
-            [54.5443, -3.3931], // Ennerdale Bridge
-            [54.5128, -3.2097], // Rosthwaite
-            [54.4598, -3.0298], // Grasmere
-            [54.4058, -2.9269], // Patterdale/Glenridding
-            [54.4786, -2.6728], // Shap
-            [54.5264, -2.5331], // Orton
-            [54.4797, -2.3520], // Kirkby Stephen
-            [54.4059, -2.1570], // Keld
-            [54.3882, -1.9583], // Reeth
-            [54.4040, -1.7388], // Richmond
-            [54.3792, -1.5158], // Danby Wiske
-            [54.3758, -1.2564], // Ingleby Cross
-            [54.4264, -1.1153], // Clay Bank Top/Great Broughton
-            [54.3994, -0.9728], // Blakey Ridge
-            [54.3847, -0.8181], // Grosmont
-            [54.4367, -0.5389]  // Robin Hoods Bay
-        ];
+      let map;
+      let mapInitialized = false;
 
-        let accommodations = [
-            {
-                name: "Seacote Hotel",
-                coords: [54.4917, -3.5849],
-                day: 1,
-                date: "9 Sep 2025",
-                phone: "01946 822300",
-                address: "The Beach, St Bees",
-                notes: "Arrival day • Evening meals available",
-                color: "green"
-            },
-            {
-                name: "The Shepherds Arms Hotel",
-                coords: [54.5443, -3.3931],
-                day: 2,
-                date: "10 Sep 2025",
-                phone: "01946 861249",
-                address: "Ennerdale Bridge, Cleator",
-                notes: "14 miles • Table reserved for dinner",
-                color: "blue"
-            },
-            {
-                name: "Royal Oak Hotel",
-                coords: [54.5128, -3.2097],
-                day: 3,
-                date: "11 Sep 2025",
-                phone: "017687 77214",
-                address: "Rosthwaite, Borrowdale",
-                notes: "14 miles • Dinner, bed & breakfast",
-                color: "blue"
-            },
-            {
-                name: "The Swan",
-                coords: [54.4598, -3.0298],
-                day: 4,
-                date: "12 Sep 2025",
-                phone: "01539 435742",
-                address: "Keswick Road, Grasmere",
-                notes: "10 miles • Wordsworth's village",
-                color: "blue"
-            },
-            {
-                name: "Ullswater Inn",
-                coords: [54.4058, -2.9269],
-                day: 5,
-                date: "13 Sep 2025",
-                phone: "015394 35592",
-                address: "Glenridding, Penrith",
-                notes: "8 miles • Optional Helvellyn route",
-                color: "blue"
-            },
-            {
-                name: "Kings Arms",
-                coords: [54.4786, -2.6728],
-                day: 6,
-                date: "14 Sep 2025",
-                phone: "01931 716277",
-                address: "Main Street, Shap",
-                notes: "16 miles • Roman High Street",
-                color: "blue"
-            },
-            {
-                name: "George Hotel",
-                coords: [54.5264, -2.5331],
-                day: 7,
-                date: "15 Sep 2025",
-                phone: "01539 303015",
-                address: "Front Street, Orton",
-                notes: "8 miles • Eden Valley farmland",
-                color: "blue"
-            },
-            {
-                name: "Old Croft House",
-                coords: [54.4797, -2.3520],
-                day: 8,
-                date: "16 Sep 2025",
-                phone: "017683 71638",
-                address: "Market Street, Kirkby Stephen",
-                notes: "12 miles • Train station access",
-                color: "blue"
-            },
-            {
-                name: "Keld Lodge",
-                coords: [54.4059, -2.1570],
-                day: 9,
-                date: "17 Sep 2025",
-                phone: "01748 886259",
-                address: "Keld, Richmond",
-                notes: "13 miles • Nine Standards Rigg",
-                color: "blue"
-            },
-            {
-                name: "Ivy Cottage",
-                coords: [54.3882, -1.9583],
-                day: 10,
-                date: "18 Sep 2025",
-                phone: "01748 884418",
-                address: "The Green, Reeth",
-                notes: "11 miles • Lead mining heritage",
-                color: "blue"
-            },
-            {
-                name: "The Castle House",
-                coords: [54.4040, -1.7388],
-                day: 11,
-                date: "19 Sep 2025",
-                phone: "07971 298152",
-                address: "9 Castle Hill, Richmond",
-                notes: "11 miles • Historic market town",
-                color: "blue"
-            },
-            {
-                name: "The White Swan Inn",
-                coords: [54.3792, -1.5158],
-                day: 12,
-                date: "20 Sep 2025",
-                phone: "01609 775131",
-                address: "Danby Wiske, Northallerton",
-                notes: "13 miles • Vale of Mowbray",
-                color: "blue"
-            },
-            {
-                name: "Park House",
-                coords: [54.3758, -1.2564],
-                day: 13,
-                date: "21 Sep 2025",
-                phone: "01609 882899",
-                address: "Ingleby Cross, Northallerton",
-                notes: "9 miles • A19 road crossing",
-                color: "blue"
-            },
-            {
-                name: "Wainstones Hotel",
-                coords: [54.4264, -1.1153],
-                day: 14,
-                date: "22 Sep 2025",
-                phone: "01642 712268",
-                address: "High Street, Great Broughton",
-                notes: "13 miles • Cleveland Hills",
-                color: "blue"
-            },
-            {
-                name: "Lion Inn",
-                coords: [54.3994, -0.9728],
-                day: 15,
-                date: "23 Sep 2025",
-                phone: "01751 417320",
-                address: "Blakey Ridge, Kirkbymoorside",
-                notes: "9 miles • Remote moorland inn",
-                color: "blue"
-            },
-            {
-                name: "Gallery B&B",
-                coords: [54.3847, -0.8181],
-                day: 16,
-                date: "24 Sep 2025",
-                phone: "07768 743633",
-                address: "Front Street, Grosmont",
-                notes: "14 miles • Steam railway station",
-                color: "blue"
-            },
-            {
-                name: "The Wayfarer",
-                coords: [54.4367, -0.5389],
-                day: 17,
-                date: "25 Sep 2025",
-                phone: "01947 880240",
-                address: "Station Road, Robin Hoods Bay",
-                notes: "15 miles • FINISH! North Sea celebration",
-                color: "red"
-            }
-        ];
+      const walkData = [
+        {
+          day: 1,
+          date: "9 Sep 2025",
+          from: "Arrival",
+          to: "St Bees",
+          distance: 0,
+          difficulty: "Arrival day",
+          accommodation: "Seacote Hotel",
+          address: "The Beach, St Bees, Cumbria",
+          phone: "01946 822300",
+          notes: "Evening meals available • Book in advance",
+          coords: [54.49, -3.6],
+          color: "green",
+        },
+        {
+          day: 2,
+          date: "10 Sep 2025",
+          from: "St Bees",
+          to: "Ennerdale",
+          distance: 14,
+          difficulty: "Strenuous",
+          accommodation: "Shepherds Arms",
+          address: "Ennerdale Bridge, Cleator, Cumbria",
+          phone: "01946 861249",
+          notes: "Evening meals available • Table reserved",
+          coords: [54.53, -3.44],
+          color: "blue",
+        },
+        {
+          day: 3,
+          date: "11 Sep 2025",
+          from: "Ennerdale",
+          to: "Rosthwaite",
+          distance: 14,
+          difficulty: "Strenuous",
+          accommodation: "Royal Oak",
+          address: "Rosthwaite, Borrowdale, Keswick",
+          phone: "017687 77214",
+          notes: "Dinner, bed & breakfast basis • Check in from 1pm",
+          coords: [54.52, -3.15],
+          color: "blue",
+        },
+        {
+          day: 4,
+          date: "12 Sep 2025",
+          from: "Rosthwaite",
+          to: "Grasmere",
+          distance: 10,
+          difficulty: "Strenuous",
+          accommodation: "Swan Hotel",
+          address: "Keswick Road, Grasmere",
+          phone: "01539 435742",
+          notes: "Check in from 3pm • Evening meals available",
+          coords: [54.4654, -3.0201],
+          color: "blue",
+        },
+        {
+          day: 5,
+          date: "13 Sep 2025",
+          from: "Grasmere",
+          to: "Glenridding",
+          distance: 8,
+          difficulty: "Strenuous",
+          accommodation: "Ullswater Inn",
+          address: "Glenridding, Penrith",
+          phone: "015394 35592",
+          notes: "Evening meals available • No booking required",
+          coords: [54.544, -2.947],
+          color: "blue",
+        },
+        {
+          day: 6,
+          date: "14 Sep 2025",
+          from: "Glenridding",
+          to: "Shap",
+          distance: 16,
+          difficulty: "Strenuous",
+          accommodation: "Kings Arms",
+          address: "Main Street, Shap",
+          phone: "01931 716277",
+          notes: "Evening meals available • Several pubs nearby",
+          coords: [54.53, -2.68],
+          color: "blue",
+        },
+        {
+          day: 7,
+          date: "15 Sep 2025",
+          from: "Shap",
+          to: "Orton",
+          distance: 8,
+          difficulty: "Moderate",
+          accommodation: "George Hotel",
+          address: "Front Street, Orton",
+          phone: "01539 303015",
+          notes: "Evening meals available • Book at check-in",
+          coords: [54.468, -2.585],
+          color: "blue",
+        },
+        {
+          day: 8,
+          date: "16 Sep 2025",
+          from: "Orton",
+          to: "Kirkby Stephen",
+          distance: 12,
+          difficulty: "Moderate",
+          accommodation: "Old Croft House",
+          address: "Market Street, Kirkby Stephen",
+          phone: "017683 71638",
+          notes: "Check in from 3:30pm • Several restaurants nearby",
+          coords: [54.47, -2.35],
+          color: "blue",
+        },
+        {
+          day: 9,
+          date: "17 Sep 2025",
+          from: "Kirkby Stephen",
+          to: "Keld",
+          distance: 13,
+          difficulty: "Strenuous",
+          accommodation: "Keld Lodge",
+          address: "Keld, Richmond",
+          phone: "01748 886259",
+          notes: "Evening meals available • Table reserved",
+          coords: [54.407, -2.166],
+          color: "blue",
+        },
+        {
+          day: 10,
+          date: "18 Sep 2025",
+          from: "Keld",
+          to: "Reeth",
+          distance: 11,
+          difficulty: "Strenuous",
+          accommodation: "Ivy Cottage",
+          address: "The Green, Reeth",
+          phone: "01748 884418",
+          notes: "Village centre • Several pubs nearby",
+          coords: [54.39, -1.94],
+          color: "blue",
+        },
+        {
+          day: 11,
+          date: "19 Sep 2025",
+          from: "Reeth",
+          to: "Richmond",
+          distance: 11,
+          difficulty: "Moderate",
+          accommodation: "Castle House",
+          address: "9 Castle Hill, Richmond",
+          phone: "07971 298152",
+          notes: "Historic town centre • Many restaurants",
+          coords: [54.404, -1.737],
+          color: "blue",
+        },
+        {
+          day: 12,
+          date: "20 Sep 2025",
+          from: "Richmond",
+          to: "Danby Wiske",
+          distance: 13,
+          difficulty: "Moderate",
+          accommodation: "White Swan",
+          address: "Danby Wiske, Northallerton",
+          phone: "01609 775131",
+          notes: "Evening meals 6:30-7:00pm only • Pre-booking essential",
+          coords: [54.38, -1.48],
+          color: "blue",
+        },
+        {
+          day: 13,
+          date: "21 Sep 2025",
+          from: "Danby Wiske",
+          to: "Ingleby Cross",
+          distance: 11,
+          difficulty: "Moderate",
+          accommodation: "Park House",
+          address: "Ingleby Cross, Northallerton",
+          phone: "01609 882899",
+          notes: "Evening meals available • Call ahead to arrange",
+          coords: [54.426, -1.259],
+          color: "blue",
+        },
+        {
+          day: 14,
+          date: "22 Sep 2025",
+          from: "Ingleby Cross",
+          to: "Clay Bank Top",
+          distance: 11,
+          difficulty: "Strenuous",
+          accommodation: "Wainstones Hotel",
+          address: "High Street, Great Broughton",
+          phone: "01642 712268",
+          notes: "Transport from Clay Bank Top • Check in from 2pm",
+          coords: [54.45, -1.16],
+          color: "blue",
+        },
+        {
+          day: 15,
+          date: "23 Sep 2025",
+          from: "Clay Bank Top",
+          to: "Blakey",
+          distance: 9,
+          difficulty: "Moderate",
+          accommodation: "Lion Inn",
+          address: "Blakey Ridge, Kirkbymoorside",
+          phone: "01751 417320",
+          notes: "Remote inn • Evening meals available",
+          coords: [54.39, -0.95],
+          color: "blue",
+        },
+        {
+          day: 16,
+          date: "24 Sep 2025",
+          from: "Blakey",
+          to: "Grosmont",
+          distance: 15,
+          difficulty: "Long moderate",
+          accommodation: "Gallery B&B",
+          address: "Front Street, Grosmont",
+          phone: "07768 743633",
+          notes: "Check in from 12:30pm • Near railway station",
+          coords: [54.44, -0.73],
+          color: "blue",
+        },
+        {
+          day: 17,
+          date: "25 Sep 2025",
+          from: "Grosmont",
+          to: "Robin Hoods Bay",
+          distance: 15,
+          difficulty: "Long moderate",
+          accommodation: "Wayfarer",
+          address: "Station Road, Robin Hoods Bay",
+          phone: "01947 880240",
+          notes: "Final destination • Coastal village • Celebration time!",
+          coords: [54.4299, -0.533],
+          color: "red",
+        },
+      ];
 
-        function initMap() {
-            try {
-                if (typeof L === 'undefined') {
-                    console.error('Leaflet library not loaded');
-                    return;
-                }
+      function buildTimeline() {
+        const timelineContainer = document.getElementById("timelineContainer");
+        timelineContainer.innerHTML = "<h2>Daily Itinerary</h2>"; // Clear existing and add title
 
-                const mapElement = document.getElementById('map');
-                if (!mapElement) {
-                    console.error('Map container element not found');
-                    return;
-                }
+        walkData.forEach((day) => {
+          const dayCard = document.createElement("div");
+          dayCard.className = "day";
 
-                if (mapInitialized) {
-                    return;
-                }
+          let routeText =
+            day.day === 1 ? `Arrival in ${day.to}` : `${day.from} → ${day.to}`;
+          let difficultyClass = `difficulty-${day.difficulty.replace(
+            /\s+/g,
+            "-"
+          )}`;
 
-                map = L.map('map').setView([54.45, -2.1], 8);
-                
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '© OpenStreetMap contributors'
-                }).addTo(map);
+          dayCard.innerHTML = `
+                    <div class="day-number"><span>${day.day}</span></div>
+                    <div class="day-content">
+                        <div class="day-header">
+                            <div class="day-route">${routeText}</div>
+                            <div class="day-date">${day.date}</div>
+                        </div>
+                        <div class="day-meta">
+                            <div class="day-info-item">
+                                <span>🥾</span>
+                                <span>${
+                                  day.distance > 0
+                                    ? day.distance + " miles"
+                                    : "Rest Day"
+                                }</span>
+                            </div>
+                            <div class="day-info-item ${difficultyClass}">
+                                <span>${
+                                  day.difficulty === "Strenuous" ? "🔥" : "⚡"
+                                }</span>
+                                <span>${day.difficulty}</span>
+                            </div>
+                        </div>
+                        <div class="accommodation">
+                            <div class="accommodation-name">${
+                              day.accommodation
+                            }</div>
+                            <div class="accommodation-address">${
+                              day.address
+                            }</div>
+                            <div class="accommodation-details">📞 ${
+                              day.phone
+                            } • ${day.notes}</div>
+                        </div>
+                    </div>
+                `;
+          timelineContainer.appendChild(dayCard);
+        });
+      }
 
-                // Add route line
-                L.polyline(routeCoordinates, {
-                    color: '#dc2626',
-                    weight: 4,
-                    opacity: 0.8
-                }).addTo(map);
+      function initMap() {
+        try {
+          if (typeof L === "undefined") {
+            console.error("Leaflet library not loaded");
+            return;
+          }
 
-                // Add accommodation markers
-                accommodations.forEach(function(accommodation) {
-                    let markerColor = accommodation.color === 'green' ? '#22c55e' : 
-                                    accommodation.color === 'red' ? '#dc2626' : '#3b82f6';
-                    
-                    let marker = L.circleMarker(accommodation.coords, {
-                        radius: 8,
-                        fillColor: markerColor,
-                        color: 'white',
-                        weight: 2,
-                        opacity: 1,
-                        fillOpacity: 0.8
-                    }).addTo(map);
+          const mapElement = document.getElementById("map");
+          if (!mapElement) {
+            console.error("Map container element not found");
+            return;
+          }
 
-                    let popupContent = `
+          if (mapInitialized) {
+            return;
+          }
+
+          map = L.map("map");
+
+          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution: "© OpenStreetMap contributors",
+          }).addTo(map);
+
+          const routeCoordinates = walkData.map((day) => day.coords);
+          L.polyline(routeCoordinates, {
+            color: "#dc2626",
+            weight: 4,
+            opacity: 0.8,
+          }).addTo(map);
+
+          walkData.forEach(function (day) {
+            let markerColor =
+              day.color === "green"
+                ? "#22c55e"
+                : day.color === "red"
+                ? "#dc2626"
+                : "#3b82f6";
+
+            let marker = L.circleMarker(day.coords, {
+              radius: 8,
+              fillColor: markerColor,
+              color: "white",
+              weight: 2,
+              opacity: 1,
+              fillOpacity: 0.8,
+            }).addTo(map);
+
+            let popupContent = `
                         <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
                             <h3 style="margin: 0 0 10px 0; color: #2c3e50; font-size: 1.1rem;">
-                                Day ${accommodation.day}: ${accommodation.name}
+                                Day ${day.day}: ${day.accommodation}
                             </h3>
                             <p style="margin: 5px 0; color: #6b7280; font-size: 0.9rem;">
-                                📅 ${accommodation.date}
+                                📅 ${day.date}
                             </p>
                             <p style="margin: 5px 0; color: #6b7280; font-size: 0.9rem;">
-                                📍 ${accommodation.address}
+                                📍 ${day.address}
                             </p>
                             <p style="margin: 5px 0; color: #6b7280; font-size: 0.9rem;">
-                                📞 ${accommodation.phone}
+                                📞 ${day.phone}
                             </p>
                             <p style="margin: 10px 0 0 0; color: #4f46e5; font-size: 0.9rem; font-weight: 500;">
-                                ${accommodation.notes}
+                                ${day.notes}
                             </p>
                         </div>
                     `;
 
-                    marker.bindPopup(popupContent);
-                });
+            marker.bindPopup(popupContent);
+          });
 
-                // Fit map to show entire route
-                map.fitBounds(L.polyline(routeCoordinates).getBounds(), {padding: [20, 20]});
-                
-                mapInitialized = true;
-                console.log('Map initialized successfully');
-            } catch (error) {
-                console.error('Error initializing map:', error);
-            }
+          mapInitialized = true;
+          console.log("Map initialized successfully");
+        } catch (error) {
+          console.error("Error initializing map:", error);
         }
+      }
 
-        function showTimeline() {
-            const timelineContainer = document.getElementById('timelineContainer');
-            const mapContainer = document.getElementById('mapContainer');
-            
-            if (timelineContainer && mapContainer) {
-                timelineContainer.style.display = 'block';
-                mapContainer.style.display = 'none';
-                
-                document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
-                const timelineBtn = document.querySelectorAll('.toggle-btn')[0];
-                if (timelineBtn) {
-                    timelineBtn.classList.add('active');
+      function showTimeline() {
+        document.getElementById("timelineContainer").style.display = "block";
+        document.getElementById("mapContainer").style.display = "none";
+        document
+          .querySelectorAll(".toggle-btn")
+          .forEach((btn) => btn.classList.remove("active"));
+        document.querySelectorAll(".toggle-btn")[0].classList.add("active");
+      }
+
+      function showMap() {
+        document.getElementById("timelineContainer").style.display = "none";
+        document.getElementById("mapContainer").style.display = "block";
+        document
+          .querySelectorAll(".toggle-btn")
+          .forEach((btn) => btn.classList.remove("active"));
+        document.querySelectorAll(".toggle-btn")[1].classList.add("active");
+
+        const mapElement = document.getElementById("map");
+        const mapLoading = document.getElementById("mapLoading");
+
+        if (!mapInitialized) {
+          mapLoading.style.display = "flex";
+          mapElement.style.display = "none";
+
+          setTimeout(() => {
+            if (typeof L !== "undefined" && document.getElementById("map")) {
+              initMap();
+              mapLoading.style.display = "none";
+              mapElement.style.display = "block";
+              setTimeout(() => {
+                if (map) {
+                  map.invalidateSize();
+                  const bounds = L.polyline(
+                    walkData.map((d) => d.coords)
+                  ).getBounds();
+                  map.fitBounds(bounds, { padding: [50, 50] });
                 }
+              }, 100);
+            } else {
+              console.error("Leaflet library or map container not available");
+              mapLoading.innerHTML =
+                '<div class="loading-text">Error loading map. Please refresh the page.</div>';
             }
+          }, 500);
+        } else {
+          setTimeout(() => {
+            if (map) {
+              map.invalidateSize();
+              const bounds = L.polyline(
+                walkData.map((d) => d.coords)
+              ).getBounds();
+              map.fitBounds(bounds, { padding: [50, 50] });
+            }
+          }, 100);
         }
+      }
 
-        function showMap() {
-            const timelineContainer = document.getElementById('timelineContainer');
-            const mapContainer = document.getElementById('mapContainer');
-            
-            if (timelineContainer && mapContainer) {
-                timelineContainer.style.display = 'none';
-                mapContainer.style.display = 'block';
-                
-                document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
-                const mapBtn = document.querySelectorAll('.toggle-btn')[1];
-                if (mapBtn) {
-                    mapBtn.classList.add('active');
-                }
-                
-                // Initialize map with a slight delay to ensure DOM is ready
-                if (!mapInitialized) {
-                    setTimeout(() => {
-                        if (typeof L !== 'undefined' && document.getElementById('map')) {
-                            initMap();
-                        } else {
-                            console.error('Leaflet library or map container not available');
-                        }
-                    }, 250);
-                }
+      function animateStats() {
+        document.querySelectorAll(".stat").forEach((stat) => {
+          const target = parseInt(stat.getAttribute("data-animate"));
+          const numberElement = stat.querySelector(".stat-number");
+          let current = 0;
+          const increment = target / 50;
+          const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+              current = target;
+              clearInterval(timer);
             }
-        }
-
-        // Ensure everything is loaded before allowing any interactions
-        document.addEventListener('DOMContentLoaded', function() {
-            // Verify all required elements exist
-            const timelineContainer = document.getElementById('timelineContainer');
-            const mapContainer = document.getElementById('mapContainer');
-            const mapElement = document.getElementById('map');
-            
-            if (!timelineContainer || !mapContainer || !mapElement) {
-                console.error('Required DOM elements not found');
-                return;
-            }
-            
-            // Set initial state
-            timelineContainer.style.display = 'block';
-            mapContainer.style.display = 'none';
+            numberElement.textContent = Math.floor(current);
+          }, 40);
         });
+      }
+
+      function updateCountdown() {
+        const walkDate = new Date("2025-09-09T10:00:00");
+        const now = new Date();
+        const diff = walkDate - now;
+
+        if (diff > 0) {
+          const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+          const hours = Math.floor(
+            (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+          );
+          const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+          document.getElementById("days").textContent = days;
+          document.getElementById("hours").textContent = hours;
+          document.getElementById("minutes").textContent = minutes;
+        } else {
+          document.querySelector(".countdown-container").innerHTML =
+            '<div class="countdown-title">🎉 The Coast to Coast Walk has begun! 🎉</div>';
+        }
+      }
+
+      function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function toggleBackToTopButton() {
+        const backToTopButton = document.getElementById("backToTop");
+        if (window.pageYOffset > 300) {
+          backToTopButton.classList.add("visible");
+        } else {
+          backToTopButton.classList.remove("visible");
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        buildTimeline();
+        setTimeout(animateStats, 500);
+        updateCountdown();
+        setInterval(updateCountdown, 60000);
+        window.addEventListener("scroll", toggleBackToTopButton);
+        toggleBackToTopButton();
+      });
     </script>
-</body>
+  </body>
 </html>
