@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Coast to Coast Walk 2025</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Lato:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
       * {
         margin: 0;
@@ -12,11 +18,11 @@
       }
 
       body {
-        font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont,
-          "Segoe UI", Roboto, sans-serif;
+        font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
         line-height: 1.6;
-        color: #2c3e50;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #333;
+        background-color: #f4f4f4;
         min-height: 100vh;
         scroll-behavior: smooth;
       }
@@ -24,16 +30,21 @@
       .container {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 20px;
+        padding: 0 20px;
       }
 
       .hero {
         text-align: center;
-        padding: 60px 20px;
+        padding: 120px 40px;
         color: white;
         margin-bottom: 40px;
         position: relative;
+        background-image: url("https://images.unsplash.com/photo-1473773508845-188df298d2d1?q=80&w=2574&auto=format&fit=crop");
+        background-size: cover;
+        background-position: center;
+        border-radius: 0 0 30px 30px;
         overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
       }
 
       .hero::before {
@@ -43,33 +54,29 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="%23ffffff" fill-opacity="0.03"><path d="M30 0L35 25L60 30L35 35L30 60L25 35L0 30L25 25Z"/></g></svg>')
-          repeat;
-        background-size: 60px 60px;
-        animation: float 20s linear infinite;
-        pointer-events: none;
+        background: rgba(0, 0, 0, 0.45);
+        z-index: 1;
       }
 
-      @keyframes float {
-        0% {
-          transform: translateX(-60px) translateY(-60px);
-        }
-        100% {
-          transform: translateX(0) translateY(0);
-        }
+      .hero > * {
+        position: relative;
+        z-index: 2;
       }
 
       .hero h1 {
-        font-size: 3.5rem;
+        font-family: "Lora", serif;
+        font-size: 4.5rem;
         font-weight: 700;
         margin-bottom: 20px;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
       }
 
       .hero p {
-        font-size: 1.3rem;
+        font-family: "Lato", sans-serif;
+        font-size: 1.5rem;
         margin-bottom: 30px;
         opacity: 0.9;
+        font-weight: 400;
       }
 
       .stats {
@@ -82,34 +89,17 @@
 
       .stat {
         text-align: center;
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.15);
         padding: 20px;
         border-radius: 15px;
         backdrop-filter: blur(10px);
         border: 1px solid rgba(255, 255, 255, 0.2);
-        transform: translateY(20px);
-        opacity: 0;
-        animation: slideUp 0.8s ease forwards;
-      }
-
-      .stat:nth-child(2) {
-        animation-delay: 0.2s;
-      }
-      .stat:nth-child(3) {
-        animation-delay: 0.4s;
-      }
-
-      @keyframes slideUp {
-        to {
-          transform: translateY(0);
-          opacity: 1;
-        }
       }
 
       .countdown-container {
         margin-top: 40px;
         padding: 25px;
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.15);
         border-radius: 20px;
         backdrop-filter: blur(10px);
         border: 1px solid rgba(255, 255, 255, 0.2);
@@ -159,44 +149,56 @@
       }
 
       #timelineContainer {
-        background: white;
+        background-color: #ffffff;
+        background-image: url("https://www.transparenttextures.com/patterns/light-paper-fibers.png");
         border-radius: 20px;
         padding: 40px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         margin-bottom: 40px;
       }
 
       #timelineContainer h2 {
+        font-family: "Lora", serif;
         text-align: center;
         margin-bottom: 50px;
-        font-size: 2.5rem;
-        color: #1a202c;
-        font-weight: 800;
-        letter-spacing: -0.025em;
+        font-size: 2.8rem;
+        color: #2c3e50;
+        font-weight: 700;
       }
 
       .day {
-        display: flex;
-        margin-bottom: 35px;
-        padding: 30px;
+        margin-bottom: 20px;
         border-radius: 18px;
         background: #ffffff;
-        border: 1px solid #e5e7eb;
-        border-left: 6px solid #667eea;
+        border: 1px solid #e2e8f0;
         transition: all 0.3s ease;
         position: relative;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+        overflow: hidden;
       }
 
-      .day:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
-        border-color: #e5e7eb;
-        border-left-color: #4f46e5;
+      .day-header {
+        display: flex;
+        padding: 30px;
+        cursor: pointer;
+        border-left: 6px solid #4a5568; /* Slate Grey */
+      }
+
+      .day:hover .day-header {
+        border-left-color: #576c8a; /* Heather Purple */
+      }
+
+      .day.completed .day-header {
+        border-left-color: #a0aec0;
+        opacity: 0.7;
+      }
+
+      .day.today .day-header {
+        border-left-color: #48bb78; /* Green */
       }
 
       .day-number {
-        background: linear-gradient(135deg, #667eea, #764ba2);
+        background: #4a5568; /* Slate Grey */
         color: white;
         width: 60px;
         height: 60px;
@@ -213,6 +215,14 @@
         overflow: hidden;
       }
 
+      .day.completed .day-number {
+        background: #a0aec0;
+      }
+
+      .day.today .day-number {
+        background: #48bb78;
+      }
+
       .day-number span {
         position: relative;
         z-index: 2;
@@ -225,7 +235,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: linear-gradient(135deg, #4f46e5, #7c3aed);
+        background: #576c8a; /* Heather Purple */
         opacity: 0;
         transition: opacity 0.3s ease;
         border-radius: 50%;
@@ -244,7 +254,7 @@
         flex: 1;
       }
 
-      .day-header {
+      .day-title {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
@@ -254,19 +264,31 @@
       }
 
       .day-route {
-        font-size: 1.4rem;
+        font-family: "Lora", serif;
+        font-size: 1.5rem;
         font-weight: 700;
-        color: #1a202c;
-        letter-spacing: -0.025em;
+        color: #2d3748;
       }
 
       .day-date {
-        background: #e3f2fd;
-        color: #1976d2;
+        background: #e2e8f0;
+        color: #4a5568;
         padding: 5px 12px;
         border-radius: 20px;
         font-size: 0.9rem;
-        font-weight: 500;
+        font-weight: 700;
+      }
+
+      .day-details-wrapper {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease-in-out;
+        padding: 0 30px;
+      }
+
+      .day.active .day-details-wrapper {
+        max-height: 500px; /* Adjust as needed */
+        padding-bottom: 30px;
       }
 
       .day-meta {
@@ -280,71 +302,70 @@
         display: flex;
         align-items: center;
         gap: 8px;
-        background: #f8f9fa;
+        background: #f7fafc;
         padding: 8px 12px;
         border-radius: 20px;
         font-size: 0.9rem;
+        border: 1px solid #e2e8f0;
       }
 
       .difficulty-Strenuous {
-        background: #f8d7da;
-        color: #721c24;
+        background: #fed7d7;
+        color: #9b2c2c;
+        border-color: #fecaca;
       }
       .difficulty-Moderate {
-        background: #fff3cd;
-        color: #856404;
+        background: #fefcbf;
+        color: #b45309;
+        border-color: #fef9c3;
       }
       .difficulty-Long-moderate {
-        background: #d1ecf1;
-        color: #0c5460;
+        background: #ccebfb;
+        color: #2c5282;
+        border-color: #bee3f8;
       }
       .difficulty-Arrival-day {
-        background: #d4edda;
-        color: #155724;
+        background: #c6f6d5;
+        color: #2f855a;
+        border-color: #b2f5ea;
       }
 
       .accommodation {
-        background: #f8fafc;
+        background: #f7fafc;
         padding: 20px;
         border-radius: 12px;
         border: 1px solid #e2e8f0;
         margin-top: 5px;
-        transition: all 0.3s ease;
-        position: relative;
-      }
-
-      .accommodation:hover {
-        background: #f1f5f9;
-        border-color: #cbd5e1;
-        transform: translateY(-1px);
       }
 
       .accommodation-name {
+        font-family: "Lora", serif;
         font-weight: 700;
-        color: #4338ca;
+        color: #4a5568;
         margin-bottom: 8px;
-        font-size: 1.05rem;
+        font-size: 1.1rem;
       }
 
       .accommodation-address {
         font-size: 0.95rem;
-        color: #4b5563;
+        color: #4a5568;
         margin-bottom: 10px;
         font-weight: 500;
       }
 
       .accommodation-details {
         font-size: 0.9rem;
-        color: #6b7280;
+        color: #718096;
         font-weight: 400;
         line-height: 1.5;
       }
 
       .footer {
         text-align: center;
-        padding: 40px 20px;
-        color: white;
-        opacity: 0.8;
+        padding: 50px 20px;
+        color: #e2e8f0;
+        background-color: #2d3748;
+        margin-top: 40px;
       }
 
       .view-toggle {
@@ -355,59 +376,37 @@
       }
 
       .toggle-btn {
-        background: rgba(255, 255, 255, 0.1);
-        color: white;
-        border: 2px solid rgba(255, 255, 255, 0.3);
+        font-family: "Lato", sans-serif;
+        background: #fff;
+        color: #4a5568;
+        border: 2px solid #e2e8f0;
         padding: 12px 24px;
         border-radius: 25px;
         cursor: pointer;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        backdrop-filter: blur(10px);
-        font-weight: 500;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .toggle-btn::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          rgba(255, 255, 255, 0.2),
-          transparent
-        );
-        transition: left 0.5s;
-      }
-
-      .toggle-btn:hover::before {
-        left: 100%;
+        transition: all 0.3s ease;
+        font-weight: 700;
       }
 
       .toggle-btn:hover {
-        background: rgba(255, 255, 255, 0.2);
-        border-color: rgba(255, 255, 255, 0.5);
+        background: #4a5568;
+        color: white;
+        border-color: #4a5568;
         transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 4px 15px rgba(74, 85, 104, 0.2);
       }
 
       .toggle-btn.active {
-        background: white;
-        color: #667eea;
-        border-color: white;
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        background: #4a5568;
+        color: white;
+        border-color: #4a5568;
+        box-shadow: 0 4px 15px rgba(74, 85, 104, 0.2);
       }
 
       .map-container {
         background: white;
         border-radius: 20px;
         padding: 40px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         margin-bottom: 40px;
         display: none;
       }
@@ -421,7 +420,6 @@
         height: 600px;
         border-radius: 15px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
       }
 
       .map-loading {
@@ -438,8 +436,8 @@
       .loading-spinner {
         width: 50px;
         height: 50px;
-        border: 4px solid #e5e7eb;
-        border-top: 4px solid #667eea;
+        border: 4px solid #e2e8f0;
+        border-top: 4px solid #4a5568;
         border-radius: 50%;
         animation: spin 1s linear infinite;
       }
@@ -454,87 +452,95 @@
       }
 
       .loading-text {
-        color: #6b7280;
+        color: #718096;
         font-size: 1.1rem;
       }
 
       .map-info {
         margin-top: 20px;
         padding: 20px;
-        background: #f8f9fa;
+        background: #f7fafc;
         border-radius: 15px;
         text-align: center;
       }
 
       .map-info h3 {
-        color: #2c3e50;
+        font-family: "Lora", serif;
+        color: #2d3748;
         margin-bottom: 10px;
       }
 
       .map-info p {
-        color: #6b7280;
+        color: #718096;
         margin: 5px 0;
       }
 
-      .back-to-top {
+      .floating-btn {
         position: fixed;
         bottom: 30px;
-        right: 30px;
-        width: 50px;
-        height: 50px;
-        background: linear-gradient(135deg, #667eea, #764ba2);
+        left: 50%;
+        transform: translateX(-50%);
+        background: #2d3748;
         color: white;
         border: none;
-        border-radius: 50%;
+        border-radius: 30px;
+        padding: 15px 25px;
+        font-size: 1rem;
+        font-weight: 700;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
         cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.5rem;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 999;
+        transition: all 0.3s ease;
         opacity: 0;
         visibility: hidden;
-        transform: translateY(20px);
-        z-index: 1000;
       }
 
-      .back-to-top.visible {
+      .floating-btn.visible {
         opacity: 1;
         visibility: visible;
-        transform: translateY(0);
       }
 
-      .back-to-top:hover {
-        transform: translateY(-3px) scale(1.1);
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
-        background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      .back-to-top {
+        right: 30px;
+        left: auto;
+        transform: none;
+        width: 50px;
+        height: 50px;
       }
 
       @media (max-width: 768px) {
         .hero h1 {
-          font-size: 2.5rem;
+          font-size: 3rem;
         }
 
         .stats {
           gap: 20px;
         }
 
+        .view-toggle {
+          display: none;
+        }
+
         .day {
-          flex-direction: column;
-          text-align: center;
+          margin-bottom: 15px;
+        }
+
+        .day-header {
+          padding: 20px;
         }
 
         .day-number {
-          margin: 0 auto 20px auto;
+          width: 50px;
+          height: 50px;
+          margin-right: 15px;
         }
 
-        .day-header,
-        .day-meta {
-          flex-direction: column;
-          align-items: center;
-          text-align: center;
-          gap: 10px;
+        .day-route {
+          font-size: 1.2rem;
+        }
+
+        .day-details-wrapper {
+          padding: 0 20px;
         }
 
         #timelineContainer {
@@ -547,6 +553,10 @@
           width: 45px;
           height: 45px;
           font-size: 1.3rem;
+        }
+
+        .floating-btn {
+          bottom: 20px;
         }
       }
     </style>
@@ -622,10 +632,6 @@
         <div class="map-info">
           <h3>Click on any marker to see accommodation details</h3>
           <p>🟢 Start Point • 🔵 Daily Stops • 🔴 Finish Point</p>
-          <p>
-            The red line shows Wainwright's famous Coast to Coast route across
-            Northern England
-          </p>
         </div>
       </div>
 
@@ -633,15 +639,15 @@
         <h2>Daily Itinerary</h2>
         <!-- Daily cards will be dynamically inserted here -->
       </div>
-
-      <div class="footer">
-        <p>Alfred Wainwright's Coast to Coast Walk • September 2025</p>
-        <p>From the Irish Sea to the North Sea across Northern England</p>
-      </div>
     </div>
 
+    <footer class="footer">
+      <p>Alfred Wainwright's Coast to Coast Walk • September 2025</p>
+      <p>From the Irish Sea to the North Sea across Northern England</p>
+    </footer>
+
     <button
-      class="back-to-top"
+      class="back-to-top floating-btn"
       id="backToTop"
       onclick="scrollToTop()"
       title="Back to top"
@@ -649,15 +655,18 @@
       ↑
     </button>
 
+    <button id="floating-toggle" class="floating-btn">🗺️ Show Map</button>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
     <script>
       let map;
       let mapInitialized = false;
+      let currentView = "timeline";
 
       const walkData = [
         {
           day: 1,
-          date: "9 Sep 2025",
+          date: "2025-09-09",
           from: "Arrival",
           to: "St Bees",
           distance: 0,
@@ -671,7 +680,7 @@
         },
         {
           day: 2,
-          date: "10 Sep 2025",
+          date: "2025-09-10",
           from: "St Bees",
           to: "Ennerdale",
           distance: 14,
@@ -685,7 +694,7 @@
         },
         {
           day: 3,
-          date: "11 Sep 2025",
+          date: "2025-09-11",
           from: "Ennerdale",
           to: "Rosthwaite",
           distance: 14,
@@ -699,7 +708,7 @@
         },
         {
           day: 4,
-          date: "12 Sep 2025",
+          date: "2025-09-12",
           from: "Rosthwaite",
           to: "Grasmere",
           distance: 10,
@@ -713,7 +722,7 @@
         },
         {
           day: 5,
-          date: "13 Sep 2025",
+          date: "2025-09-13",
           from: "Grasmere",
           to: "Glenridding",
           distance: 8,
@@ -727,7 +736,7 @@
         },
         {
           day: 6,
-          date: "14 Sep 2025",
+          date: "2025-09-14",
           from: "Glenridding",
           to: "Shap",
           distance: 16,
@@ -741,7 +750,7 @@
         },
         {
           day: 7,
-          date: "15 Sep 2025",
+          date: "2025-09-15",
           from: "Shap",
           to: "Orton",
           distance: 8,
@@ -755,7 +764,7 @@
         },
         {
           day: 8,
-          date: "16 Sep 2025",
+          date: "2025-09-16",
           from: "Orton",
           to: "Kirkby Stephen",
           distance: 12,
@@ -769,7 +778,7 @@
         },
         {
           day: 9,
-          date: "17 Sep 2025",
+          date: "2025-09-17",
           from: "Kirkby Stephen",
           to: "Keld",
           distance: 13,
@@ -783,7 +792,7 @@
         },
         {
           day: 10,
-          date: "18 Sep 2025",
+          date: "2025-09-18",
           from: "Keld",
           to: "Reeth",
           distance: 11,
@@ -797,7 +806,7 @@
         },
         {
           day: 11,
-          date: "19 Sep 2025",
+          date: "2025-09-19",
           from: "Reeth",
           to: "Richmond",
           distance: 11,
@@ -811,7 +820,7 @@
         },
         {
           day: 12,
-          date: "20 Sep 2025",
+          date: "2025-09-20",
           from: "Richmond",
           to: "Danby Wiske",
           distance: 13,
@@ -825,7 +834,7 @@
         },
         {
           day: 13,
-          date: "21 Sep 2025",
+          date: "2025-09-21",
           from: "Danby Wiske",
           to: "Ingleby Cross",
           distance: 11,
@@ -839,7 +848,7 @@
         },
         {
           day: 14,
-          date: "22 Sep 2025",
+          date: "2025-09-22",
           from: "Ingleby Cross",
           to: "Clay Bank Top",
           distance: 11,
@@ -853,7 +862,7 @@
         },
         {
           day: 15,
-          date: "23 Sep 2025",
+          date: "2025-09-23",
           from: "Clay Bank Top",
           to: "Blakey",
           distance: 9,
@@ -867,7 +876,7 @@
         },
         {
           day: 16,
-          date: "24 Sep 2025",
+          date: "2025-09-24",
           from: "Blakey",
           to: "Grosmont",
           distance: 15,
@@ -881,7 +890,7 @@
         },
         {
           day: 17,
-          date: "25 Sep 2025",
+          date: "2025-09-25",
           from: "Grosmont",
           to: "Robin Hoods Bay",
           distance: 15,
@@ -895,13 +904,30 @@
         },
       ];
 
+      function getFormattedDate(date) {
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, "0");
+        const day = date.getDate().toString().padStart(2, "0");
+        return `${year}-${month}-${day}`;
+      }
+
       function buildTimeline() {
         const timelineContainer = document.getElementById("timelineContainer");
-        timelineContainer.innerHTML = "<h2>Daily Itinerary</h2>"; // Clear existing and add title
+        timelineContainer.innerHTML = "<h2>Daily Itinerary</h2>";
+        const today = new Date();
+        // FOR DEMONSTRATION: Set a fixed date during the walk
+        // const today = new Date('2025-09-12T12:00:00');
+        const todayFormatted = getFormattedDate(today);
 
         walkData.forEach((day) => {
           const dayCard = document.createElement("div");
           dayCard.className = "day";
+
+          if (day.date < todayFormatted) {
+            dayCard.classList.add("completed");
+          } else if (day.date === todayFormatted) {
+            dayCard.classList.add("today", "active");
+          }
 
           let routeText =
             day.day === 1 ? `Arrival in ${day.to}` : `${day.from} → ${day.to}`;
@@ -909,21 +935,28 @@
             /\s+/g,
             "-"
           )}`;
+          let dayNumberContent = day.date < todayFormatted ? "✔" : day.day;
 
           dayCard.innerHTML = `
-                    <div class="day-number"><span>${day.day}</span></div>
-                    <div class="day-content">
-                        <div class="day-header">
-                            <div class="day-route">${routeText}</div>
-                            <div class="day-date">${day.date}</div>
+                    <div class="day-header">
+                        <div class="day-number"><span>${dayNumberContent}</span></div>
+                        <div class="day-content">
+                            <div class="day-title">
+                                <div class="day-route">${routeText}</div>
+                                <div class="day-date">${new Date(day.date)
+                                  .toDateString()
+                                  .slice(0, -5)}</div>
+                            </div>
                         </div>
+                    </div>
+                    <div class="day-details-wrapper">
                         <div class="day-meta">
                             <div class="day-info-item">
                                 <span>🥾</span>
                                 <span>${
                                   day.distance > 0
                                     ? day.distance + " miles"
-                                    : "Rest Day"
+                                    : "Arrival Day"
                                 }</span>
                             </div>
                             <div class="day-info-item ${difficultyClass}">
@@ -948,45 +981,53 @@
                 `;
           timelineContainer.appendChild(dayCard);
         });
+
+        document.querySelectorAll(".day-header").forEach((header) => {
+          header.addEventListener("click", () => {
+            header.parentElement.classList.toggle("active");
+          });
+        });
       }
 
       function initMap() {
         try {
-          if (typeof L === "undefined") {
-            console.error("Leaflet library not loaded");
-            return;
-          }
-
-          const mapElement = document.getElementById("map");
-          if (!mapElement) {
-            console.error("Map container element not found");
-            return;
-          }
-
-          if (mapInitialized) {
+          if (
+            typeof L === "undefined" ||
+            !document.getElementById("map") ||
+            mapInitialized
+          ) {
             return;
           }
 
           map = L.map("map");
-
           L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
             attribution: "© OpenStreetMap contributors",
           }).addTo(map);
 
           const routeCoordinates = walkData.map((day) => day.coords);
           L.polyline(routeCoordinates, {
-            color: "#dc2626",
+            color: "#4a5568",
             weight: 4,
             opacity: 0.8,
           }).addTo(map);
 
+          const today = new Date();
+          // FOR DEMONSTRATION: Set a fixed date during the walk
+          // const today = new Date('2025-09-12T12:00:00');
+          const todayFormatted = getFormattedDate(today);
+
           walkData.forEach(function (day) {
-            let markerColor =
-              day.color === "green"
-                ? "#22c55e"
-                : day.color === "red"
-                ? "#dc2626"
-                : "#3b82f6";
+            let markerColor;
+            if (day.date < todayFormatted) {
+              markerColor = "#a0aec0"; // Completed (Grey)
+            } else if (day.date === todayFormatted) {
+              markerColor = "#48bb78"; // Today (Green)
+            } else {
+              markerColor = "#3b82f6"; // Future (Blue)
+            }
+
+            if (day.day === 1) markerColor = "#48bb78"; // Start is always green
+            if (day.day === walkData.length) markerColor = "#e53e3e"; // End is always red
 
             let marker = L.circleMarker(day.coords, {
               radius: 8,
@@ -994,34 +1035,33 @@
               color: "white",
               weight: 2,
               opacity: 1,
-              fillOpacity: 0.8,
+              fillOpacity: 0.9,
             }).addTo(map);
 
             let popupContent = `
-                        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
-                            <h3 style="margin: 0 0 10px 0; color: #2c3e50; font-size: 1.1rem;">
+                        <div style="font-family: 'Lato', sans-serif;">
+                            <h3 style="margin: 0 0 10px 0; color: #2c3e50; font-size: 1.1rem; font-family: 'Lora', serif;">
                                 Day ${day.day}: ${day.accommodation}
                             </h3>
-                            <p style="margin: 5px 0; color: #6b7280; font-size: 0.9rem;">
-                                📅 ${day.date}
-                            </p>
-                            <p style="margin: 5px 0; color: #6b7280; font-size: 0.9rem;">
-                                📍 ${day.address}
-                            </p>
-                            <p style="margin: 5px 0; color: #6b7280; font-size: 0.9rem;">
-                                📞 ${day.phone}
-                            </p>
-                            <p style="margin: 10px 0 0 0; color: #4f46e5; font-size: 0.9rem; font-weight: 500;">
-                                ${day.notes}
-                            </p>
-                        </div>
-                    `;
-
+                            <p style="margin: 5px 0; color: #6b7280; font-size: 0.9rem;">📅 ${new Date(
+                              day.date
+                            )
+                              .toDateString()
+                              .slice(0, -5)}</p>
+                            <p style="margin: 5px 0; color: #6b7280; font-size: 0.9rem;">📍 ${
+                              day.address
+                            }</p>
+                            <p style="margin: 5px 0; color: #6b7280; font-size: 0.9rem;">📞 ${
+                              day.phone
+                            }</p>
+                            <p style="margin: 10px 0 0 0; color: #4a5568; font-size: 0.9rem; font-weight: 500;">${
+                              day.notes
+                            }</p>
+                        </div>`;
             marker.bindPopup(popupContent);
           });
 
           mapInitialized = true;
-          console.log("Map initialized successfully");
         } catch (error) {
           console.error("Error initializing map:", error);
         }
@@ -1034,6 +1074,8 @@
           .querySelectorAll(".toggle-btn")
           .forEach((btn) => btn.classList.remove("active"));
         document.querySelectorAll(".toggle-btn")[0].classList.add("active");
+        document.getElementById("floating-toggle").innerHTML = "🗺️ Show Map";
+        currentView = "timeline";
       }
 
       function showMap() {
@@ -1043,6 +1085,9 @@
           .querySelectorAll(".toggle-btn")
           .forEach((btn) => btn.classList.remove("active"));
         document.querySelectorAll(".toggle-btn")[1].classList.add("active");
+        document.getElementById("floating-toggle").innerHTML =
+          "📅 Show Itinerary";
+        currentView = "map";
 
         const mapElement = document.getElementById("map");
         const mapLoading = document.getElementById("mapLoading");
@@ -1065,10 +1110,6 @@
                   map.fitBounds(bounds, { padding: [50, 50] });
                 }
               }, 100);
-            } else {
-              console.error("Leaflet library or map container not available");
-              mapLoading.innerHTML =
-                '<div class="loading-text">Error loading map. Please refresh the page.</div>';
             }
           }, 500);
         } else {
@@ -1126,22 +1167,35 @@
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
 
-      function toggleBackToTopButton() {
+      function toggleFloatingButtons() {
         const backToTopButton = document.getElementById("backToTop");
+        const floatingToggle = document.getElementById("floating-toggle");
         if (window.pageYOffset > 300) {
           backToTopButton.classList.add("visible");
+          floatingToggle.classList.add("visible");
         } else {
           backToTopButton.classList.remove("visible");
+          floatingToggle.classList.remove("visible");
         }
       }
+
+      document
+        .getElementById("floating-toggle")
+        .addEventListener("click", () => {
+          if (currentView === "timeline") {
+            showMap();
+          } else {
+            showTimeline();
+          }
+        });
 
       document.addEventListener("DOMContentLoaded", function () {
         buildTimeline();
         setTimeout(animateStats, 500);
         updateCountdown();
         setInterval(updateCountdown, 60000);
-        window.addEventListener("scroll", toggleBackToTopButton);
-        toggleBackToTopButton();
+        window.addEventListener("scroll", toggleFloatingButtons);
+        toggleFloatingButtons();
       });
     </script>
   </body>
