@@ -39,7 +39,7 @@
         color: white;
         margin-bottom: 40px;
         position: relative;
-        background-image: url("https://images.unsplash.com/photo-1473773508845-188df298d2d1?q=80&w=2574&auto=format&fit=crop");
+        background-image: url("images/hero-background.jpg");
         background-size: cover;
         background-position: center;
         border-radius: 0 0 30px 30px;
@@ -89,16 +89,50 @@
         border: 1px solid rgba(255, 255, 255, 0.2);
       }
 
-      .weather-location {
-        font-family: "Lora", serif;
-        font-size: 1.5rem;
-        margin-bottom: 15px;
+      #weather-summary {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 10px;
       }
 
-      .forecast {
+      .weather-location {
+        font-family: "Lora", serif;
+        font-size: 1.2rem;
+        font-weight: bold;
+      }
+
+      .weather-today {
         display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .weather-today .icon {
+        font-size: 2rem;
+      }
+
+      #toggle-forecast {
+        background: none;
+        border: 1px solid white;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 15px;
+        cursor: pointer;
+        margin-left: 15px;
+      }
+
+      #full-forecast {
+        display: none;
         justify-content: space-around;
         gap: 10px;
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .weather-container.expanded #full-forecast {
+        display: flex;
       }
 
       .forecast-day {
@@ -592,6 +626,7 @@
         cursor: pointer;
       }
 
+      /* Mobile specific styles */
       @media (max-width: 768px) {
         .hero {
           padding: 60px 20px;
@@ -645,7 +680,7 @@
           align-items: center;
           background: rgba(255, 255, 255, 0.1);
           border-radius: 10px;
-          padding: 5px 10px;
+          padding: 5px 12px;
         }
         .forecast-day .icon {
           font-size: 1.5rem;
@@ -670,10 +705,8 @@
         <p>St Bees to Robin Hoods Bay • Alfred Wainwright's Famous Route</p>
 
         <div class="weather-container" id="weather-container">
-          <div class="weather-location" id="weather-location">
-            Loading Weather...
-          </div>
-          <div class="forecast" id="forecast"></div>
+          <div id="weather-summary"></div>
+          <div id="full-forecast" class="forecast"></div>
         </div>
 
         <div class="stats">
@@ -1304,22 +1337,15 @@
         const todayFormatted = getFormattedDate(today);
         let location;
 
-        // Find current day's location
         const currentDay = walkData.find((day) => day.date === todayFormatted);
 
         if (currentDay) {
           location = currentDay;
         } else if (today < new Date(walkData[0].date)) {
-          // Before the walk
           location = walkData[0];
         } else {
-          // After the walk
           location = walkData[walkData.length - 1];
         }
-
-        document.getElementById(
-          "weather-location"
-        ).textContent = `7-Day Forecast for ${location.to}`;
 
         const url = `https://api.open-meteo.com/v1/forecast?latitude=${location.coords[0]}&longitude=${location.coords[1]}&daily=weathercode,temperature_2m_max,temperature_2m_min&forecast_days=7&timezone=auto`;
 
@@ -1327,8 +1353,28 @@
           const response = await fetch(url);
           const data = await response.json();
           if (data.daily) {
-            const forecastContainer = document.getElementById("forecast");
-            forecastContainer.innerHTML = ""; // Clear previous
+            const weatherSummary = document.getElementById("weather-summary");
+            const fullForecast = document.getElementById("full-forecast");
+            fullForecast.innerHTML = "";
+
+            const todayWeather = data.daily;
+            const dayName = new Date(todayWeather.time[0]).toLocaleDateString(
+              "en-US",
+              { weekday: "short" }
+            );
+            const icon = getWeatherIcon(todayWeather.weathercode[0]);
+            const minTemp = Math.round(todayWeather.temperature_2m_min[0]);
+            const maxTemp = Math.round(todayWeather.temperature_2m_max[0]);
+
+            weatherSummary.innerHTML = `
+                        <div class="weather-location">Today in ${location.to}</div>
+                        <div class="weather-today">
+                            <div class="icon">${icon}</div>
+                            <div class="temps">${minTemp}°/${maxTemp}°</div>
+                            <button id="toggle-forecast">View 7-Day</button>
+                        </div>
+                    `;
+
             for (let i = 0; i < 7; i++) {
               const dayName = new Date(data.daily.time[i]).toLocaleDateString(
                 "en-US",
@@ -1338,7 +1384,7 @@
               const minTemp = Math.round(data.daily.temperature_2m_min[i]);
               const maxTemp = Math.round(data.daily.temperature_2m_max[i]);
 
-              forecastContainer.innerHTML += `
+              fullForecast.innerHTML += `
                             <div class="forecast-day">
                                 <div class="day-name">${dayName}</div>
                                 <div class="icon">${icon}</div>
@@ -1346,10 +1392,21 @@
                             </div>
                         `;
             }
+
+            document
+              .getElementById("toggle-forecast")
+              .addEventListener("click", (e) => {
+                e.preventDefault();
+                const container = document.getElementById("weather-container");
+                container.classList.toggle("expanded");
+                e.target.textContent = container.classList.contains("expanded")
+                  ? "Hide Forecast"
+                  : "View 7-Day";
+              });
           }
         } catch (error) {
           console.error("Error fetching hero weather:", error);
-          document.getElementById("weather-location").textContent =
+          document.getElementById("weather-summary").textContent =
             "Could not load weather";
         }
       }
