@@ -712,6 +712,252 @@
           text-align: left;
         }
       }
+
+      /* Modal Styles */
+      .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 1000;
+        justify-content: center;
+        align-items: flex-start;
+        overflow-y: auto;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+
+      .modal-content {
+        background: white;
+        border-radius: 16px;
+        width: 100%;
+        max-width: 600px;
+        max-height: 90vh;
+        overflow-y: auto;
+        margin: auto;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        position: relative;
+        animation: modalFadeIn 0.3s ease-out;
+      }
+
+      @keyframes modalFadeIn {
+        from {
+          opacity: 0;
+          transform: scale(0.9) translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
+
+      .modal-header {
+        padding: 24px 24px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #e5e7eb;
+        margin-bottom: 0;
+      }
+
+      .modal-header h2 {
+        margin: 0;
+        color: #1f2937;
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
+
+      .modal-close {
+        background: none;
+        border: none;
+        font-size: 2rem;
+        color: #6b7280;
+        cursor: pointer;
+        padding: 0;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        transition: background-color 0.2s;
+      }
+
+      .modal-close:hover {
+        background-color: #f3f4f6;
+        color: #374151;
+      }
+
+      .modal-body {
+        padding: 24px;
+      }
+
+      .modal-info {
+        margin-bottom: 24px;
+      }
+
+      .modal-stage {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 8px;
+      }
+
+      .modal-stats {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .modal-distance,
+      .modal-difficulty {
+        background: #f3f4f6;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: #374151;
+      }
+
+      .modal-accommodation,
+      .modal-description,
+      .modal-highlights {
+        margin-bottom: 24px;
+      }
+
+      .modal-accommodation h3,
+      .modal-description h3,
+      .modal-highlights h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #1f2937;
+        margin: 0 0 12px 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .accommodation-details {
+        background: #f9fafb;
+        padding: 16px;
+        border-radius: 12px;
+        border: 1px solid #e5e7eb;
+      }
+
+      .accommodation-name {
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 8px;
+        font-size: 1.1rem;
+      }
+
+      .accommodation-contact div {
+        color: #6b7280;
+        font-size: 0.9rem;
+        margin-bottom: 4px;
+      }
+
+      .accommodation-contact div:last-child {
+        margin-bottom: 0;
+      }
+
+      .modal-description p {
+        line-height: 1.6;
+        color: #374151;
+        margin: 0;
+      }
+
+      .modal-highlights ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .modal-highlights li {
+        background: #f3f4f6;
+        padding: 12px 16px;
+        border-radius: 8px;
+        margin-bottom: 8px;
+        line-height: 1.5;
+        color: #374151;
+        position: relative;
+        padding-left: 40px;
+      }
+
+      .modal-highlights li:before {
+        content: "✨";
+        position: absolute;
+        left: 16px;
+        top: 12px;
+      }
+
+      .modal-highlights li:last-child {
+        margin-bottom: 0;
+      }
+
+      /* View Details Button */
+      .day-actions {
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid #e5e7eb;
+      }
+
+      .view-details-btn {
+        background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        color: white;
+        border: none;
+        padding: 10px 16px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .view-details-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+      }
+
+      .view-details-btn:active {
+        transform: translateY(0);
+      }
+
+      /* Mobile Responsive */
+      @media (max-width: 768px) {
+        .modal-overlay {
+          padding: 0;
+          align-items: flex-start;
+        }
+
+        .modal-content {
+          max-height: 100vh;
+          border-radius: 0;
+          margin: 0;
+          width: 100%;
+        }
+
+        .modal-header,
+        .modal-body {
+          padding: 20px;
+        }
+
+        .modal-stats {
+          gap: 12px;
+        }
+
+        .modal-distance,
+        .modal-difficulty {
+          flex: 1;
+          text-align: center;
+        }
+      }
     </style>
   </head>
   <body>
@@ -832,6 +1078,12 @@
           notes: "Evening meals available • Book in advance",
           coords: [54.49, -3.6],
           color: "green",
+          description: "Arrive at the coastal village of St Bees on the Irish Sea. There is no walking today, so settle into your accommodation and explore the red-sandstone cliffs and St Bees Priory. The official Coast-to-Coast marker is on the beach – many walkers follow tradition by dipping their boots in the sea and collecting a pebble to carry across England.",
+          highlights: [
+            "St Bees Head is the only breeding site in England for black guillemots; its red-sandstone cliffs rise almost 100m and support seabird colonies.",
+            "The Benedictine St Bees Priory was founded between 1120–1135 and was subordinated to St Mary's Abbey in York; it was dissolved in 1539 during Henry VIII's Dissolution of the Monasteries. A remarkable 14th-century knight known as the 'St Bees Man' was discovered buried there in 1981.",
+            "St Bees Lighthouse, first lit in 1867, stands on the cliff-top and at 102m above sea level is the highest lighthouse in England."
+          ]
         },
         {
           day: 2,
@@ -846,6 +1098,12 @@
           notes: "Evening meals available • Table reserved",
           coords: [54.53, -3.44],
           color: "blue",
+          description: "Leave St Bees by following the clifftop path past Fleswick Bay and St Bees Lighthouse. Turn inland through the hamlets of Sandwith, Moor Row and Cleator, then climb Dent, the first fell of the walk, before descending via the tranquil Nannycatch valley to reach Ennerdale Bridge.",
+          highlights: [
+            "Dent (also called Long Barrow) is 352m high and is the first fell on the Coast-to-Coast; its summit gives sweeping views south across the Cumbrian coast to the Isle of Man and north-east toward Pillar and the Sca Fells.",
+            "The Nannycatch valley is a half-mile-long glen between the scree slopes of Flat Fell and Scaly Moss; Nannycatch Beck flows along the valley floor and the Coast-to-Coast route follows the beck for its entire length.",
+            "Near Ennerdale Bridge stands the Blakeley Raise (Kinniside) stone circle, an 18m-diameter ring of 11 stones reconstructed in 1925. Set on open moorland, the circle affords views across the Irish Sea to the Isle of Man."
+          ]
         },
         {
           day: 3,
@@ -860,6 +1118,12 @@
           notes: "Dinner, bed & breakfast basis • Check in from 1pm",
           coords: [54.52, -3.15],
           color: "blue",
+          description: "Walk along the shore of Ennerdale Water and continue up the remote valley. Visit the tiny Black Sail Hut before climbing steeply beside Loft Beck to the fells north of Great Gable. Cross the drumlins and old slate workings of Honister Pass and descend into Borrowdale to reach Rosthwaite.",
+          highlights: [
+            "Black Sail Hut is often described as the most remote youth hostel in England; it occupies a converted shepherd's bothy beneath Great Gable and Pillar Rock and is accessible only on foot.",
+            "Borrowdale is home to the 'Fraternal Four' yew trees, thought to be at least 1,500 years old and made famous by William Wordsworth's 1803 poem 'Yew-Trees'.",
+            "Seathwaite in Borrowdale records a mean annual rainfall of 3,552mm – the highest in England – and set a UK 24-hour rainfall record of 314.4mm on 19 November 2009."
+          ]
         },
         {
           day: 4,
@@ -874,6 +1138,12 @@
           notes: "Check in from 3pm • Evening meals available",
           coords: [54.4654, -3.0201],
           color: "blue",
+          description: "Follow Stonethwaite Beck and Greenup Gill past waterfalls to the steep climb of Lining Crag. From the boggy col at Greenup Edge descend via Far Easedale or along the ridge over Helm Crag into the poetic village of Grasmere.",
+          highlights: [
+            "William Wordsworth described Grasmere as 'the loveliest spot that man hath ever found' in his 1802 poem 'A Farewell' and lived at Dove Cottage in the village; he is buried in St Oswald's Churchyard.",
+            "Grasmere Gingerbread is a unique spiced biscuit-cake created in 1854 by Sarah Nelson; the secret recipe remains unchanged and the gingerbread is still baked and sold in the tiny cottage where she lived.",
+            "Borrowdale's ancient yews, thought to be over 1,500 years old, appear to be three separate trees but actually arise from a single tree and were celebrated by Wordsworth in his 1803 poem 'Yew-Trees'."
+          ]
         },
         {
           day: 5,
@@ -888,6 +1158,12 @@
           notes: "Evening meals available • No booking required",
           coords: [54.544, -2.947],
           color: "blue",
+          description: "Climb alongside Tongue Gill to Grisedale Tarn. From the tarn choose either the ridge over St Sunday Crag or the higher route over Helvellyn, then descend past the ruins of Greenside mine along Grisedale Beck to the lakeside village of Glenridding.",
+          highlights: [
+            "Helvellyn is around 450 million years old and formed from volcanic rocks of the Borrowdale Volcanic Group. Glaciation carved its sharp ridges (Striding and Swirral Edges), and the name likely derives from Cumbric meaning 'pale yellow upland'.",
+            "Angle Tarn above Patterdale sits at 479m and has a distinctive fish-hook shape with two rocky islets; Alfred Wainwright praised it as one of the best Lakeland tarns.",
+            "Legend says that after the last king of Cumbria, Dunmail, was slain at Dunmail Raise, his warriors carried his crown to Grisedale Tarn and threw it into the depths. Each year they return and, striking the stones, hear a voice cry 'Not yet, not yet; wait awhile, my warriors'."
+          ]
         },
         {
           day: 6,
@@ -902,6 +1178,12 @@
           notes: "Evening meals available • Several pubs nearby",
           coords: [54.53, -2.68],
           color: "blue",
+          description: "From Glenridding the route climbs to Boredale Hause before traversing Angle Tarn. Continue to the old Roman road over High Street and scramble over Kidsty Pike – the highest point on the Coast-to-Coast – then descend steeply to Haweswater. Follow the reservoir and rolling farmland into Shap.",
+          highlights: [
+            "High Street (828m) is named after the Roman road that crosses its flat summit; this road linked the forts of Brougham and Ambleside and is the highest Roman road in England. Locals held summer fairs and horse racing on the summit, giving it the nickname 'Racecourse Hill'.",
+            "Kidsty Pike (780m) stands between Riggindale and Randale valleys. Although a subsidiary top of Rampsgill Head, it is regarded as a separate fell because of its distinctive sharp profile when seen from Haweswater or the M6 motorway.",
+            "Near Shap the Oddendale stone circles consist of two concentric rings: an outer ring 27m across and an inner ring 7m across. Built around 2872–2350 BC as oak post circles, they were later replaced by pink granite stones and overlaid by a Bronze Age ring cairn."
+          ]
         },
         {
           day: 7,
@@ -916,6 +1198,12 @@
           notes: "Evening meals available • Book at check-in",
           coords: [54.468, -2.585],
           color: "blue",
+          description: "Leave Shap and cross a windswept limestone plateau dotted with sheep and erratic boulders. Pass the hamlet of Oddendale and a low field of limestone pavement before descending gradually into the picturesque village of Orton.",
+          highlights: [
+            "Orton Scar forms part of the extensive limestone pavement of Great Asby Scar. Glacial abrasion left deep fissures in the limestone, creating a distinctive clint-and-grike landscape; the Coast-to-Coast path runs along the foot of the scar and passes a Jubilee monument erected on Beacon Hill in 1887.",
+            "Sunbiggin Tarn and Great Asby Scar form a 15-square-mile National Nature Reserve. The tarn and surrounding limestone pavement were carved by Ice Age glaciers and freeze-thaw processes, and the area supports rare plants such as limestone fern.",
+            "Within the reserve lie the earthworks of Castle Folds, a Romano-British settlement enclosed by massive dry-stone walls thought to have provided refuge during raids."
+          ]
         },
         {
           day: 8,
@@ -930,6 +1218,12 @@
           notes: "Check in from 3:30pm • Several restaurants nearby",
           coords: [54.47, -2.35],
           color: "blue",
+          description: "Continue across rolling farmland and heather moorland. Pass Sunbiggin Tarn and the limestone pavements of Great Asby Scar, then traverse open fields and quiet lanes to the market town of Kirkby Stephen.",
+          highlights: [
+            "Great Asby Scar is a 15-square-mile national nature reserve of limestone pavement. Ice Age glaciers scoured the limestone, and subsequent freeze–thaw widened the joints to create clints and grikes which now harbour rare plants.",
+            "Sunbiggin Tarn is a shallow marl lake surrounded by species-rich fen and is notable for breeding wildfowl. The tarn lies within the Great Asby Scar reserve and is an important Site of Special Scientific Interest.",
+            "Nearby Castle Folds is a Romano-British settlement with massive walled enclosures thought to have sheltered livestock during times of unrest."
+          ]
         },
         {
           day: 9,
@@ -944,6 +1238,12 @@
           notes: "Evening meals available • Table reserved",
           coords: [54.407, -2.166],
           color: "blue",
+          description: "Climb steadily onto the Pennine watershed to the nine cairns of Nine Standards Rigg. Take one of the seasonal routes across peat bogs to White Mossey Hill before descending into Swaledale and the hamlet of Keld.",
+          highlights: [
+            "Nine Standards Rigg is crowned by nine large stone cairns of unknown origin; theories suggest they may mark an ancient boundary or sit atop a Bronze Age long barrow.",
+            "The cairns stand around 4m high on a ridge 650m above sea level and form part of the North Pennines Area of Outstanding Natural Beauty.",
+            "To protect the fragile peatland, the Coast-to-Coast uses three seasonal routes from Nine Standards Rigg. All converge at White Mossey Hill near the summit trig point (662m) before descending to Swaledale."
+          ]
         },
         {
           day: 10,
@@ -958,6 +1258,12 @@
           notes: "Village centre • Several pubs nearby",
           coords: [54.39, -1.94],
           color: "blue",
+          description: "A choice of high or low routes today. The high route crosses moorland scarred by the lead-mining industry, passing Crackpot Hall, Swinner Gill and the Old Gang smelting mills. The low route follows the River Swale through Muker's hay meadows before both routes converge at the village green of Reeth.",
+          highlights: [
+            "The ruin at Crackpot Hall was an 18th-century farmhouse and offices for the Beldi Hill lead mines. Local legend spoke of a 'feral child' living there, but a BBC investigation revealed she was simply a local girl called Alice Harker whose shouts echoed around the valley.",
+            "The Yorkshire Dales were a major lead-mining area from Roman times until the late 19th century. Reeth served as the service centre for the mines of Swaledale and Arkengarthdale and now hosts the Swaledale Museum of local mining heritage.",
+            "The Grinton smelt mill, reached on the high route, is the best-preserved smelting mill in the Dales. Built in the early 1700s and rebuilt in 1820–22, it used water-powered bellows and a 300m flue to carry lead fumes away from the peat-fired furnaces."
+          ]
         },
         {
           day: 11,
@@ -972,6 +1278,12 @@
           notes: "Historic town centre • Many restaurants",
           coords: [54.404, -1.737],
           color: "blue",
+          description: "Leave Reeth and follow field paths past Marrick Priory and the village of Marske. Wander through mixed woodland and farmland before descending along the River Swale into the Georgian market town of Richmond.",
+          highlights: [
+            "Marrick Priory was a Benedictine nunnery founded between 1140 and 1160 by Roger de Aske. It was surrendered to the Crown in 1539 during the Dissolution of the Monasteries, and today its church and buildings serve as an outdoor education centre; a path of 375 'Nuns' Steps' leads up through woodland to Marrick village.",
+            "Richmond Castle is one of the earliest Norman stone castles. Begun by Alan the Red shortly after 1071, the fortress features high curtain walls and a later keep and was never besieged.",
+            "The Georgian Theatre Royal in Richmond was built in 1788 by actor-manager Samuel Butler. It is one of Britain's oldest surviving Georgian playhouses and reopened as a trust in 1963; its museum holds some of the oldest stage scenery in the world."
+          ]
         },
         {
           day: 12,
@@ -986,6 +1298,12 @@
           notes: "Evening meals 6:30-7:00pm only • Pre-booking essential",
           coords: [54.38, -1.48],
           color: "blue",
+          description: "A long, flat day crossing the Vale of Mowbray. Follow a network of country lanes, farm tracks and field paths past small villages and farms. Continue across fertile arable land to reach the hamlet of Danby Wiske.",
+          highlights: [
+            "The Vale of Mowbray is a flat, low-lying plain of fertile farmland between Richmond and Ingleby Arncliffe. Meandering rivers such as the Swale and Wiske wind through lush cropland interspersed with small woodlands.",
+            "Catterick Bridge, which carries the A6136 over the River Swale south of Richmond, was built in the 15th century. The bridge originally had five arches and a chapel but was rebuilt with three arches in 1792; it is now Grade II* listed.",
+            "The Vale of Mowbray's patchwork of fields produces cereals, potatoes and sugar beet and supports dairy farming; its gently undulating landscape forms a quiet contrast to the surrounding hills."
+          ]
         },
         {
           day: 13,
@@ -1000,6 +1318,12 @@
           notes: "Evening meals available • Call ahead to arrange",
           coords: [54.426, -1.259],
           color: "blue",
+          description: "Continue across the Vale of Mowbray on farm tracks and quiet lanes. After crossing fields beyond Danby Wiske, carefully negotiate the busy A19 near Ingleby Arncliffe and climb gently to the villages of Ingleby Cross and Ingleby Arncliffe at the foot of the Cleveland Hills.",
+          highlights: [
+            "Mount Grace Priory, near Ingleby Cross, is the best-preserved Carthusian monastery in England. Founded in 1398 by Thomas Holland, Duke of Surrey and son of King Richard II, it is set at the foot of Mount Grace Wood and features Grade I-listed ruins and a 17th-century manor house.",
+            "Carthusian monks at Mount Grace lived as hermits in individual cells, meeting only for church services and feast days. A reconstructed monk's cell in the manor house shows how they lived.",
+            "The A19 trunk road must be crossed near Ingleby Arncliffe. Walkers are warned to take great care because the road is extremely busy; after crossing, the path leads into Ingleby Cross."
+          ]
         },
         {
           day: 14,
@@ -1014,6 +1338,12 @@
           notes: "Transport from Clay Bank Top • Check in from 2pm",
           coords: [54.45, -1.16],
           color: "blue",
+          description: "Begin climbing onto the Cleveland Hills, ascending Beacon Hill. Continue along the steep roller-coaster over Carlton Moor and Cringle Moor. A short scramble through the sandstone pinnacles of the Wainstones leads to the descent at Clay Bank Top for transport to nearby accommodation.",
+          highlights: [
+            "The Wainstones are a weathered sandstone outcrop on Hasty Bank. Some boulders display prehistoric cup-and-ring carvings, and the Coast-to-Coast path threads through a natural cleft requiring a hands-and-feet scramble.",
+            "The Wainstones' crags form a rock barrier of distinctive pinnacles popular with climbers; ancient rock art has been discovered on their surfaces.",
+            "Round Hill (454m) on Urra Moor is the highest point of the North York Moors. The moor is studded with Bronze Age barrows and boundary stones such as the Hand Stone, which carries an inscription pointing the way to Kirbymoorside."
+          ]
         },
         {
           day: 15,
@@ -1028,6 +1358,12 @@
           notes: "Remote inn • Evening meals available",
           coords: [54.39, -0.95],
           color: "blue",
+          description: "Return to the moor and climb back to the plateau, topping Round Hill on Urra Moor. Then follow the almost level track of the disused Rosedale Ironstone Railway across expansive moorland until you reach the lonely Lion Inn on Blakey Ridge.",
+          highlights: [
+            "The Rosedale Railway was built to carry ironstone from the mines at Rosedale to the North-East coast. The 19.5-mile line closed in 1929 and is now a 12-mile track used by walkers and riders.",
+            "The kilns at Rosedale East Mines processed more than 10 million tons of ironstone during the 19th century. The ruins and calcining kilns are protected as scheduled monuments.",
+            "The Lion Inn was built between 1553 and 1558. Standing 1,325 ft (404m) above sea level, it is one of England's highest inns; it served travellers and miners and once hosted cockfighting and markets. In December 2010 fourteen guests were snowed in for eight days."
+          ]
         },
         {
           day: 16,
@@ -1042,6 +1378,12 @@
           notes: "Check in from 12:30pm • Near railway station",
           coords: [54.44, -0.73],
           color: "blue",
+          description: "Follow an easy track along the ridge toward Glaisdale, descending gradually into Eskdale. Pass through East Arnecliffe Wood and Egton Bridge, then follow the river to the railway village of Grosmont.",
+          highlights: [
+            "Beggar's Bridge at Glaisdale is a single-span packhorse bridge built in 1619 by Thomas Ferris. According to legend he built it so he could court his sweetheart, and the bridge is now Grade II* listed.",
+            "The North Yorkshire Moors Railway was originally opened as the Whitby & Pickering Railway in 1836. Reopened in 1973 as a heritage line operated by volunteers, it now runs steam and diesel trains along a 24-mile route and is one of England's most popular preserved railways.",
+            "Grosmont's ironworks began after ironstone was discovered nearby in 1836. Two blast furnaces (later three) produced about 70,000 tons of iron annually until the works closed in 1915."
+          ]
         },
         {
           day: 17,
@@ -1056,6 +1398,12 @@
           notes: "Final destination • Coastal village • Celebration time!",
           coords: [54.4299, -0.533],
           color: "red",
+          description: "A final day of varied walking. Climb steeply out of Grosmont onto Sleights Moor, then descend through the wooded valley of Littlebeck. Cross heather moorland above the coast and follow the cliff-top path into the fishing village of Robin Hood's Bay, where walkers traditionally dip their boots into the North Sea.",
+          highlights: [
+            "In the 18th century Robin Hood's Bay was notorious for smuggling. A warren of tunnels and passages under the houses connected cellars to the cliff tops, helping locals hide contraband tea, brandy and tobacco from Dutch and French ships; a violent skirmish between smugglers and excise men occurred there in 1779.",
+            "During a blizzard in January 1881 the Whitby lifeboat was hauled 6 miles overland through snowdrifts from Whitby to Robin Hood's Bay, enabling the rescue of the brigantine 'Visitor' and its crew.",
+            "The cliffs at Robin Hood's Bay expose Lower Jurassic rocks rich in ammonite fossils. The headland at Wine Haven is the global standard stratotype (GSSP) marking the boundary between the Pliensbachian and Toarcian stages of the Jurassic Period."
+          ]
         },
       ];
 
@@ -1815,6 +2163,13 @@
                               day.phone
                             } • ${day.notes}</div>
                         </div>
+                        ${day.description ? `
+                        <div class="day-actions">
+                            <button class="view-details-btn" onclick="showDayModal(${day.day})">
+                                📍 View Details
+                            </button>
+                        </div>
+                        ` : ''}
                     </div>
                 `;
           timelineContainer.appendChild(dayCard);
@@ -2031,6 +2386,42 @@
           }
         });
 
+      // Modal functions
+      function showDayModal(dayNumber) {
+        const day = walkData.find(d => d.day === dayNumber);
+        if (!day) return;
+
+        // Populate modal content
+        document.getElementById('modalTitle').textContent = `Day ${day.day}`;
+        document.getElementById('modalStage').textContent = day.day === 1 ? `Arrival in ${day.to}` : `${day.from} → ${day.to}`;
+        document.getElementById('modalDistance').textContent = day.distance > 0 ? `🥾 ${day.distance} miles` : '🥾 Arrival Day';
+        document.getElementById('modalDifficulty').textContent = `${day.difficulty === "Strenuous" ? "🔥" : "⚡"} ${day.difficulty}`;
+        document.getElementById('modalAccommodation').textContent = day.accommodation;
+        document.getElementById('modalAddress').textContent = day.address;
+        document.getElementById('modalPhone').textContent = `📞 ${day.phone}`;
+        document.getElementById('modalDescriptionText').textContent = day.description || '';
+
+        // Populate highlights
+        const highlightsList = document.getElementById('modalHighlights');
+        highlightsList.innerHTML = '';
+        if (day.highlights) {
+          day.highlights.forEach(highlight => {
+            const li = document.createElement('li');
+            li.textContent = highlight;
+            highlightsList.appendChild(li);
+          });
+        }
+
+        // Show modal
+        document.getElementById('dayModal').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeDayModal() {
+        document.getElementById('dayModal').style.display = 'none';
+        document.body.style.overflow = '';
+      }
+
       async function fetchHeroWeatherData() {
         const today = new Date();
         const todayFormatted = getFormattedDate(today);
@@ -2132,7 +2523,54 @@
         setInterval(updateCountdown, 60000);
         window.addEventListener("scroll", toggleFloatingButtons);
         toggleFloatingButtons();
+
+        // Modal event listener
+        document.getElementById('dayModal').addEventListener('click', (e) => {
+          if (e.target.id === 'dayModal') {
+            closeDayModal();
+          }
+        });
       });
     </script>
+
+    <!-- Day Detail Modal -->
+    <div id="dayModal" class="modal-overlay">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="modalTitle">Day Details</h2>
+          <button class="modal-close" onclick="closeDayModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-info">
+            <div class="modal-stage" id="modalStage"></div>
+            <div class="modal-stats">
+              <span class="modal-distance" id="modalDistance"></span>
+              <span class="modal-difficulty" id="modalDifficulty"></span>
+            </div>
+          </div>
+          
+          <div class="modal-accommodation">
+            <h3>🏨 Accommodation</h3>
+            <div class="accommodation-details">
+              <div class="accommodation-name" id="modalAccommodation"></div>
+              <div class="accommodation-contact">
+                <div id="modalAddress"></div>
+                <div id="modalPhone"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-description">
+            <h3>📍 Today's Route</h3>
+            <p id="modalDescriptionText"></p>
+          </div>
+
+          <div class="modal-highlights">
+            <h3>✨ Highlights & History</h3>
+            <ul id="modalHighlights"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
