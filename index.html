@@ -173,13 +173,35 @@
         margin-top: 30px;
       }
 
-      .stat {
+      .progress-stat,
+      .day-stat {
         text-align: center;
         background: rgba(255, 255, 255, 0.15);
-        padding: 20px;
+        padding: 25px 30px;
         border-radius: 15px;
         backdrop-filter: blur(10px);
         border: 1px solid rgba(255, 255, 255, 0.2);
+        min-width: 200px;
+      }
+
+      .progress-main,
+      .day-main {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: white;
+        margin-bottom: 8px;
+        font-family: "Lora", serif;
+      }
+
+      .progress-subtitle,
+      .day-subtitle {
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 400;
+      }
+
+      .progress-main #distance-walked {
+        color: #48bb78;
       }
 
       .countdown-container {
@@ -647,16 +669,21 @@
           font-size: 3rem;
         }
         .stats {
-          gap: 10px;
-          flex-wrap: nowrap;
+          gap: 15px;
+          flex-direction: column;
         }
-        .stat {
-          padding: 12px;
-          flex: 1;
-          min-width: 0;
+        .progress-stat,
+        .day-stat {
+          padding: 20px;
+          min-width: auto;
         }
-        .stat-number {
-          font-size: 2rem;
+        .progress-main,
+        .day-main {
+          font-size: 1.8rem;
+        }
+        .progress-subtitle,
+        .day-subtitle {
+          font-size: 0.9rem;
         }
         .view-toggle {
           display: none;
@@ -977,17 +1004,21 @@
         </div>
 
         <div class="stats">
-          <div class="stat" data-animate="190">
-            <span class="stat-number">0</span>
-            <span class="stat-label">Miles</span>
+          <div class="progress-stat">
+            <div class="progress-main">
+              <span id="distance-walked">0</span> / <span id="total-distance">0</span> Miles
+            </div>
+            <div class="progress-subtitle">
+              (<span id="completion-percentage">0</span>% Complete)
+            </div>
           </div>
-          <div class="stat" data-animate="17">
-            <span class="stat-number">0</span>
-            <span class="stat-label">Days</span>
-          </div>
-          <div class="stat" data-animate="3">
-            <span class="stat-number">0</span>
-            <span class="stat-label">National Parks</span>
+          <div class="day-stat">
+            <div class="day-main">
+              Day <span id="current-day">0</span> of 16
+            </div>
+            <div class="day-subtitle">
+              Walking Progress
+            </div>
           </div>
         </div>
 
@@ -2109,7 +2140,7 @@
           dayCard.className = "day";
           dayCard.id = `day-${day.day}`;
 
-          if (day.date < todayFormatted) {
+          if (isDayCompleted(day.date)) {
             dayCard.classList.add("completed");
           } else if (day.date === todayFormatted) {
             dayCard.classList.add("today", "active");
@@ -2121,7 +2152,7 @@
             /\s+/g,
             "-"
           )}`;
-          let dayNumberContent = day.date < todayFormatted ? "✔" : day.day;
+          let dayNumberContent = isDayCompleted(day.date) ? "✔" : day.day;
 
           dayCard.innerHTML = `
                     <div class="day-header">
@@ -2226,7 +2257,7 @@
 
           walkData.forEach(function (day) {
             let markerColor;
-            if (day.date < todayFormatted) {
+            if (isDayCompleted(day.date)) {
               markerColor = "#a0aec0"; // Completed (Grey)
             } else if (day.date === todayFormatted) {
               markerColor = "#48bb78"; // Today (Green)
@@ -2322,21 +2353,106 @@
         }
       }
 
-      function animateStats() {
-        document.querySelectorAll(".stat").forEach((stat) => {
-          const target = parseInt(stat.getAttribute("data-animate"));
-          const numberElement = stat.querySelector(".stat-number");
-          let current = 0;
-          const increment = target / 50;
-          const timer = setInterval(() => {
-            current += increment;
-            if (current >= target) {
-              current = target;
-              clearInterval(timer);
-            }
-            numberElement.textContent = Math.floor(current);
-          }, 40);
+      function isDayCompleted(dayDate) {
+        const today = new Date();
+        const todayFormatted = getFormattedDate(today);
+
+        // Day is completed if:
+        // 1. It's a past day (before today), OR
+        // 2. It's today and it's after 6 PM (18:00)
+        if (dayDate < todayFormatted) {
+          return true;
+        } else if (dayDate === todayFormatted) {
+          return today.getHours() >= 18;
+        }
+        return false;
+      }
+
+      function calculateDistanceWalked() {
+        let totalDistance = 0;
+        walkData.forEach((day) => {
+          if (isDayCompleted(day.date)) {
+            totalDistance += day.distance;
+          }
         });
+
+        return totalDistance;
+      }
+
+      function getTotalDistance() {
+        return walkData.reduce((total, day) => total + day.distance, 0);
+      }
+
+      function getCurrentWalkingDay() {
+        const today = new Date();
+        const todayFormatted = getFormattedDate(today);
+
+        // Find current day in the walk schedule
+        const currentDayData = walkData.find(day => day.date === todayFormatted);
+        if (currentDayData) {
+          // Since day 1 is arrival (non-walking), walking days are day 2-17
+          // So walking day = actual day - 1, but cap at 16 max walking days
+          return Math.min(currentDayData.day - 1, 16);
+        }
+
+        // If we're before the walk starts
+        const walkStartDate = new Date(walkData[0].date);
+        if (today < walkStartDate) {
+          return 0;
+        }
+
+        // If we're after the walk ends, we're on the final day
+        return 16;
+      }
+
+      function getCompletionPercentage() {
+        const distanceWalked = calculateDistanceWalked();
+        const totalDistance = getTotalDistance();
+        return Math.round((distanceWalked / totalDistance) * 100);
+      }
+
+      function animateStats() {
+        // Calculate all values
+        const distanceWalked = calculateDistanceWalked();
+        const totalDistance = getTotalDistance();
+        const completionPercentage = getCompletionPercentage();
+        const currentDay = getCurrentWalkingDay();
+
+        // Animate distance walked
+        animateNumber(document.getElementById('distance-walked'), 0, distanceWalked, 1000);
+
+        // Animate total distance
+        animateNumber(document.getElementById('total-distance'), 0, totalDistance, 1200);
+
+        // Animate percentage
+        animateNumber(document.getElementById('completion-percentage'), 0, completionPercentage, 1400);
+
+        // Animate current day
+        animateNumber(document.getElementById('current-day'), 0, currentDay, 800);
+      }
+
+      function animateNumber(element, start, end, duration) {
+        if (!element) return;
+
+        const startTime = performance.now();
+        const range = end - start;
+
+        function updateNumber(currentTime) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+
+          // Easing function for smooth animation
+          const easeProgress = 1 - Math.pow(1 - progress, 3);
+          const current = Math.round(start + (range * easeProgress));
+
+          element.textContent = current;
+
+          if (progress < 1) {
+            requestAnimationFrame(updateNumber);
+          }
+        }
+
+        requestAnimationFrame(updateNumber);
       }
 
       function updateCountdown() {
